@@ -1,28 +1,74 @@
-"use strict";
+var express = require('express'),
+    path = require('path'),
+    logger = require('morgan'),
+    bodyParser = require('body-parser');
 
-const express = require('express');
-const app = express();
-const path = require('path');
-const expressLayouts = require('express-ejs-layouts');
+var app = express();
 
-app.set('port', (process.env.PORT || 5000));
+// Usar bodyParser como Middleware
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
+app.use(bodyParser.json());
+
+// Establecer la ruta de las vistas
 app.set('views', path.join(__dirname, 'views'));
+
+// Motor de las vistas, que podría ser Jade, Mustache. Pero en la práctica vamos
+// A usar EJS (EmbeddedJS)
 app.set('view engine', 'ejs');
-app.use(expressLayouts);
+
+// Establecer el modo del logger
+app.use(logger('dev'));
+
+// Guardamos las rutas que nos proporciona index en index
+var index = require('./routes/index');
+var csv = require('./routes/csv');
+
+
+// Capturamos la variable de entorno NODE_ENV
+var env = process.env.NODE_ENV || 'development';
+app.locals.ENV = env;
+app.locals.ENV_DEVELOPMENT = env == 'development';
+
+
+// Rutas. Por defecto, que vaya al index.ejs
+app.use('/', index);
+app.use('/csv', csv);
 
 app.use(express.static(__dirname + '/public'));
 
-const calculate = require('XXXXXXXXXXXXXXXXXX');
-
-app.get('/', (request, response) => {     
-  XXXXXXXXXXXXXXXXXXXXXXXX X XXXXXX XXXX XXXXXXXXX XXX
+// Si se produce un error en la ruta, enviamos un not found
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err); // Dejamos el error lo maneje una de dos funciones
 });
 
-app.get('/csv', (request, response) => {
-  XXXXXXXXXXXXXXX XXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX XXX
+// Si estamos en un entorno de desarrollo (que se pasa poniéndolo en la consola)
+// Mostramos un error con la pila de llamadas para poder debugear
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err,
+            title: '¡ERROR!'
+        });
+    });
+}
+
+// En cualquier otro caso, suponemos que NO estamos en un entorno de desarrollo
+// Por lo que iniciamos el modo producción, en el que no se muestra la pila de
+// llamadas
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: 'Esta página no existe :(',
+        error: {},
+        title: 'error'
+    });
 });
 
-app.listen(app.get('port'), () => {
-    console.log(`Node app is running at localhost: ${app.get('port')}` );
-});
+module.exports = app;

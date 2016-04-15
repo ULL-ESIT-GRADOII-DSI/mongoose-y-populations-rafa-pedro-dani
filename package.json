@@ -1,36 +1,63 @@
 {
-  "name": "PL_practica2",
+  "name": "rpd7",
   "version": "1.0.0",
-  "description": "Analizador de cadenas csv usando AJAX",
-  "main": "csv.js",
+  "description": "Práctica: Comma Separated Values",
+  "main": "index.js",
   "scripts": {
-    "test": "firefox tests/index.html"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "bower install && gulp"
   },
   "repository": {
     "type": "git",
-    "url": XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    "url": "git+https://github.com/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani.git"
   },
   "keywords": [
-    "csv"
+    "JQuery",
+    "LocalStorage",
+    "Underscore",
+    "Express",
+    "Sass",
+    "Materialize",
+    "Heroku",
+    "HTML",
+    "Javascript",
+    "CSS"
   ],
-  "author": XXXXXXXXXX
-  "contributors": [],
-  "license": "ISC",
+  "author": [
+    "Rafael Herrero",
+    "Daniel Ramos",
+    "Pedro Ramos"
+  ],
+  "contributors": [
+    "Rafael Herrero",
+    "Pedro Ramos",
+    "Daniel Ramos"
+  ],
+  "license": "MIT",
   "bugs": {
-    "url": XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    "url": "https://github.com/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani/issues"
   },
-  "homepage": XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  "dependencies": {
-	"jquery": "*",
-    "underscore": "*",
-	"express": "~3.2.6",
-    "ejs": "*",
-    "body-parser": "~1.12.0",
-    "express-ejs-layouts": "~1.1.0"
-  },
+  "homepage": "https://github.com/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani#readme",
   "engines": {
-    "node": XXXXX
+    "npm": "^3.6.0",
+    "node": "^5.6.0"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "ejs": "^2.4.1",
+    "morgan": "^1.7.0",
+    "body-parser": "^1.15.0",
+    "bower": "1.6.5"
   },
   "devDependencies": {
+    "browser-sync": "^2.11.2",
+    "gulp": "^3.9.1",
+    "gulp-jscs": "^3.0.2",
+    "gulp-jshint": "^2.0.0",
+    "gulp-nodemon": "^2.0.6",
+    "gulp-sass": "^2.2.0",
+    "gulp-scss-lint": "^0.3.9",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.1.0"
   }
 }

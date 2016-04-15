@@ -1,3 +1,6 @@
 *~
 node_modules
-*log
+vendor
+public/vendor
+public/sass/.sass-cache/
+public/css/

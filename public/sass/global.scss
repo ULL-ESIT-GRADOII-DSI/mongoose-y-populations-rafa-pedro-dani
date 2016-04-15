@@ -1,0 +1,68 @@
+@import 'colores.scss';
+
+body{
+  background-color: $verdefondo;
+}
+
+#llorando {
+  background: url('../img/Llorando.jpg') fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  margin-bottom: 0px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#llorando h1{
+	font-size: 1000% !important;
+}
+
+#llorando a{
+  font-size: 200% !important;
+  color: white;
+  text-decoration: underline;
+}
+
+#llorando a:hover{
+  font-size: 200% !important;
+  color: white;
+  text-decoration: underline;
+}
+
+#original{
+  height: 250px;
+}
+
+.btn-large{
+  margin-top: 10px;
+  background-color: $verdefuerte !important;
+  width: 100%;
+}
+
+.btn-large:hover{
+  background-color: $verdeflojo !important;
+}
+
+.waves-effect{
+  background-color: $verdeflojo;
+}
+
+.error {
+  animation: breathing 2s ease-out infinite normal;
+  background-color: $rojoerror; 
+  color: white;   
+}
+
+@keyframes breathing {
+  0% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}

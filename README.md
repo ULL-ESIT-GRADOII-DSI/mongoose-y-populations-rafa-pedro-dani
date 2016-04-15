@@ -1,40 +1,53 @@
-# Práctica 2: Comma separated values (CSV) with AJAX
+#ETSII ULL Grado de Informatica 
+#Práctica: Comma Separated Values
 
-## jQuery.get( url [, data ] [, success ] [, dataType ] )
-* url
-  * Type: String
-  * A string containing the URL to which the request is sent.
-* data
-  * Type: PlainObject or String
-  * A plain object or string that is sent to the server with the request.
-* success
-  * Type: Function( PlainObject data, String textStatus, jqXHR jqXHR )
-  * A callback function that is executed if the request succeeds. 
-    Required if `dataType` is provided, but you can use `null` or `jQuery.noop` as a placeholder.
-* dataType
-  * Type: String
-  * The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
+##Bagdes
+[![David](https://img.shields.io/david/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani#info=dependencies&view=table)
+[![David](https://img.shields.io/david/dev/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani#info=devDependencies&view=table)
 
-## jQuery.get( [settings ] )
-* settings
-  * Type: PlainObject
-  * A set of key/value pairs that configure the Ajax request. 
-  * All properties except for `url` are optional. 
-  * A default can be set for any option with `$.ajaxSetup()`.
+##For more information look at:
 
-This is a shorthand Ajax function, which is equivalent to:
+* La sección *Práctica: Comma Separated Values. CSV* de los [apuntes](http://crguezl.github.io/pl-html/node11.html)
+* La [descripción de la práctica](https://casianorodriguezleon.gitbooks.io/pl1516/content/practicas/csv.html)
+* See it working at [CSV en GitHub Pages](http://crguezl.github.io/csv/)
+* See also [CSV](http://en.wikipedia.org/wiki/Comma-separated_values) at Wikipedia.
 
-```javascript
-$.ajax({
-  url: url,
-  data: data,
-  success: success,
-  dataType: dataType
-});
-```
+Dependencias globales:
+* `gulp`
+* `bower`
+* `jshint`
+* `jscs`
 
-The success callback function is passed the returned data, which will be an XML root element, text string, JavaScript file, or JSON object, depending on the MIME type of the response. It is also passed the text status of the response.
+Hay que tener instaladas las gemas `sass` y `scss-lint`
+##Anotación sobre Heroku.
+* Heroku sólo realiza el deploy en la rama master, cualquier archivo subido a otra rama (Ejemplo de este proyecto rama Heroku) al realizar git push heroku master no funcionará. Importante también que se debe realizar el npm install de node.js para instalar las dependencias del proyecto.
 
-# Heroku 
-https://cvsajax.herokuapp.com/
+##Enlace de tutorial de Heroku:
+[Tutorial Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction)
 
+##Comandos más importantes de Heroku:
+* heroku login
+* heroku create
+* heroku apps
+* heroku logs
+* `heroku config:set NPM_CONFIG_PRODUCTION=false` .Para que heroku instale las dependencias en devdependencies de [package.json] (package.json)
+
+###Repositorio GitHuB
+
+* [Repositorio](https://github.com/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani)
+
+###Página de la práctica en Heroku
+
+* [Web](https://practicadsi.herokuapp.com/)
+
+###Página del campus de la asignatura
+* [Campus Virtual DSI](https://campusvirtual.ull.es/1516/course/view.php?id=144)
+
+###Página de la descripción de la práctica
+* [Descripción Práctica desde el campus](https://campusvirtual.ull.es/1516/mod/page/view.php?id=187375)
+
+###Páginas de los autores
+
+* [Rafa Herrero](http://rafaherrero.github.io/)
+* [Daniel Ramos](http://danielramosacosta.github.io/#/)
+* [Pedro Ramos](http://alu0100505078.github.io/)

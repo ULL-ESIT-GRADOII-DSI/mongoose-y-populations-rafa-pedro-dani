@@ -1,1 +1,1 @@
-web: XXXXXXXXXXX
+web: ./bin/www
