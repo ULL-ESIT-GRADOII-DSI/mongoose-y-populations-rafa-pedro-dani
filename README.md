@@ -31,14 +31,14 @@ Hay que tener instaladas las gemas `sass` y `scss-lint`
 * heroku apps
 * heroku logs
 * `heroku config:set NPM_CONFIG_PRODUCTION=false` .Para que heroku instale las dependencias en devdependencies de [package.json] (package.json)
-
+* `heroku apps:destroy --app nombre_app` . Para eliminar una aplicación de tu cuenta de heroku.
 ###Repositorio GitHuB
 
 * [Repositorio](https://github.com/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani)
 
 ###Página de la práctica en Heroku
 
-* [Web](https://practicadsi.herokuapp.com/)
+* [Web](http://p8dsi.herokuapp.com/)
 
 ###Página del campus de la asignatura
 * [Campus Virtual DSI](https://campusvirtual.ull.es/1516/course/view.php?id=144)
