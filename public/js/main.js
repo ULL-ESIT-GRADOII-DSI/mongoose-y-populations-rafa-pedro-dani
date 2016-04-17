@@ -3,13 +3,19 @@ function main() {
     var original = $('#original').val();
     if(original===""){
         alert("El texto está vacío. Introduzca algo.");
-        return false;
     }
     else{
         if (window.localStorage) {
             localStorage.original = original;
         }
+        $.get("/csv",
+            {input: $('#original').val()},
+            function(data) {
+                console.log(data);
+            }
+        );
     }
+    return false;
 }
 
 $(document).ready(function() {
