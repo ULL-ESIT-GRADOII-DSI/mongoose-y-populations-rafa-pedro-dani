@@ -3,7 +3,7 @@ var router = express.Router();
 
 // Página principal
 
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
     res.render('index', {
         title: 'CSV Validator'
     });

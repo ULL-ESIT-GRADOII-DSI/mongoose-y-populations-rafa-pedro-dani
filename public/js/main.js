@@ -1,24 +1,43 @@
-function main() {
+const resultTemplate = `
+<br>
+<h4>Resultado CSV</h4>
+<table class="stripped responsive-table bordered" id="result">
+    <% _.each(rows, (row) => { %>
+        <tr class="<%=row.type%>">
+            <% _.each(row.items, (name) =>{ %>
+                <td><%= name %></td>
+            <% }); %>
+        </tr>
+    <% }); %>
+</table>
+`;
+
+/* Volcar la tabla con el resultado en el HTML */
+const fillTable = (rows) => {
+    'use strict';
+    var template = _.template(resultTemplate)({rows: rows});
+    $('#finaltable').html(template);
+};
+
+const main = () => {
     'use strict';
     var original = $('#original').val();
-    if(original===""){
-        alert("El texto está vacío. Introduzca algo.");
-    }
-    else{
+    if (original === '') {
+        alert('El texto está vacío. Introduzca algo.');
+    } else {
         if (window.localStorage) {
             localStorage.original = original;
         }
-        $.get("/csv",
+        $.get('/csv',
             {input: $('#original').val()},
-            function(data) {
-                console.log(data);
-            }
+            fillTable,
+            'json'
         );
     }
     return false;
-}
+};
 
-$(document).ready(function() {
+$(document).ready(() => {
     'use strict';
     // If the browser supports localStorage and we have some stored data
     if (window.localStorage && localStorage.original) {
@@ -26,5 +45,5 @@ $(document).ready(function() {
     }
 
     $('#form').submit(main);
-    $(".button-collapse").sideNav();
+    $('.button-collapse').sideNav();
 });
