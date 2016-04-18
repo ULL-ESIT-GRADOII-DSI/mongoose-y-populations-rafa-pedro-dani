@@ -28,11 +28,29 @@ body{
 #llorando a:hover{
   font-size: 200% !important;
   color: white;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
-#original{
-  height: 250px;
+#original, #drag_and_drop{
+  height: 200px;
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  padding: 20px; 
+}
+
+#drag_and_drop{
+    border-radius: 25px;
+    border: 2px solid #73AD21;
+    padding: 20px;
+}
+
+#nube_verde{
+  width: 100%;
+  height: 80%;
+}
+
+form p{
+  text-align: center !important;
 }
 
 .btn-large{

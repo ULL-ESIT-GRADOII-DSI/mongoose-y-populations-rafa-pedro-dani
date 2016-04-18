@@ -60,6 +60,28 @@
         $('.button-collapse').sideNav();
     });
 
+    var dropZone = document.getElementById('drag_and_drop');
+    dropZone.addEventListener('dragover', handleDragOver, false);
+    dropZone.addEventListener('drop', handleFileSelect, false);
+
+    function handleDragOver(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+        evt.target.style.animaiton = "breathing 2s ease-out infinite normal"; 
+        evt.target.style.background = "#7cb342";
+    }
+
+    function handleFileSelect(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        var files = evt.dataTransfer.files; // FileList object.
+
+        // files is a FileList of File objects. List some properties.
+        console.log(files);
+        evt.target.style.background = "#7cb342";
+      }
+
     exports.main = this.main;
 
 })(this);
