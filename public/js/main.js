@@ -17,7 +17,7 @@
 
     /* Volcar la tabla con el resultado en el HTML */
     const fillTable = (rows) => {
-        var template = _.template(resultTemplate)({rows: rows});
+        let template = _.template(resultTemplate)({rows});
         $('#finaltable').html(template);
     };
     /*Constante que vuelca el contenido de los ficheros de
@@ -29,15 +29,15 @@
     };
 
     const main = () => {
-        var original = $('#original').val();
-        if (original === '') {
+        let input = $('#original').val();
+        if (input === '') {
             alert('El texto está vacío. Introduzca algo.');
         } else {
             if (window.localStorage) {
-                localStorage.original = original;
+                localStorage.input = input;
             }
             $.get('/csv',
-                {input: $('#original').val()},
+                {input},
                 fillTable,
                 'json'
             );

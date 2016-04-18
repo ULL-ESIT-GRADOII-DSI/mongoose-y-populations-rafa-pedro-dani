@@ -1,6 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var calc = require('../src/csv');
+'use strict'
+
+const express = require('express'),
+      calc = require('../src/csv');
+
+const router = express.Router();
 
 console.log(calc);
 

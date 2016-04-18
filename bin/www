@@ -1,10 +1,13 @@
 #!/usr/bin/env node
-var app = require('../app');
+
+'use strict'
+
+let app = require('../app');
 
 // Si en el entrono encontramos una variable PORT, la usamos para abrir el
 // servidor. Si no está, usamos el 8080
 app.set('port', process.env.PORT || 8080);
 
-var server = app.listen(app.get('port'), function() {
-    console.log('Express está encendido y escuchando el puerto ' + server.address().port);
+var server = app.listen(app.get('port'), () => {
+    console.log(`Express está encendido y escuchando el puerto ${server.address().port}`);
 });

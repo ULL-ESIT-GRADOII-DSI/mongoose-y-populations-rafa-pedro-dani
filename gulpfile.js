@@ -1,4 +1,6 @@
-var gulp = require('gulp'),
+'use strict'
+
+let gulp = require('gulp'),
     nodemon = require('gulp-nodemon'),
     browserSync = require('browser-sync'),
     sass = require('gulp-sass'),
@@ -14,7 +16,7 @@ var gulp = require('gulp'),
 gulp.task('serve', ['browser-sync', 'sass:watch', 'sass']);
 // Browser sync, espera a que nodemon se reinicie y si lo hace, recarga el
 // navegador del cliente.
-gulp.task('browser-sync', ['nodemon'], function() {
+gulp.task('browser-sync', ['nodemon'], () => {
     browserSync.init(null, {
         proxy: 'http://0.0.0.0:8080',
         files: ['public/**/*.*', 'views/*.ejs', 'routes/*.js'],
@@ -24,12 +26,12 @@ gulp.task('browser-sync', ['nodemon'], function() {
 
 // Esta tarea abre el servidor en el puerto 8080 y lo reinicia si detecta
 // cambios en los ficheros .js, .html y .ejs. TODO: añadir los css
-gulp.task('nodemon', function() {
+gulp.task('nodemon', () => {
     nodemon({
         script: 'bin/www',
         ext: 'js html ejs css',
         env: {'NODE_ENV': 'development'}
-    }).on('start', function() {
+    }).on('start', () => {
         if (!called) {
             called = true;
             cb();
@@ -39,7 +41,7 @@ gulp.task('nodemon', function() {
 
 // Tarea que compila todos los sass del directorio /public/sass y los coloca
 // en /public/css.
-gulp.task('sass', function() {
+gulp.task('sass', () => {
     return gulp.src('./public/sass/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./public/css'));
@@ -47,28 +49,28 @@ gulp.task('sass', function() {
 
 // Esta tarea vigila el directorio /public/sass y relanza la tarea sass en
 // en caso de que cambie algún fichero.
-gulp.task('sass:watch', function() {
+gulp.task('sass:watch', () => {
     gulp.watch('./public/sass/*.scss', ['sass']);
 });
 
 gulp.task('lint', ['lint:jshint', 'lint:jscs', 'lint:scss']);
 
 // Tarea para pasar el JSHint a el código
-gulp.task('lint:jshint', function() {
+gulp.task('lint:jshint', () => {
     gulp.src(['public/js/*.js'])
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
 // Tarea para pasar el JSCS a el código
-gulp.task('lint:jscs', function() {
+gulp.task('lint:jscs', () => {
     return gulp.src(['gulpfile.js', 'public/js/*.js', 'routes/*.js'])
         .pipe(jscs())
         .pipe(jscs.reporter());
 });
 
 // Tarea para pasar el SCSS-Lint a el código
-gulp.task('lint:scss', function() {
+gulp.task('lint:scss', () => {
     return gulp.src('public/sass/*.scss')
         .pipe(scsslint());
 
