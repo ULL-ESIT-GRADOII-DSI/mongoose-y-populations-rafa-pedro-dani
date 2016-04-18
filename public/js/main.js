@@ -18,21 +18,13 @@ const fillTable = (rows) => {
     var template = _.template(resultTemplate)({rows: rows});
     $('#finaltable').html(template);
 };
-/* Volcar en la textarea de entrada
- * #original el contenido del fichero fileName */
+/*Constante que vuelca el contenido de los ficheros de
+prueba en el text area que tiene identificador original*/
 const dump = (fileName) => {
   'use strict';
-  console.log("filename=.."+fileName);
-  console.log("entre adump..");
-  $.get("js/input.txt",function(data){
-      console.log("data="+data);
-        $("#original").val(data);
-  },'text');
-  /*
   $.get(fileName, function (data) {
-      console.log("entre a $get...");
       $("#original").val(data);
-  });*/
+  });
 };
 const main = () => {
     'use strict';
@@ -65,6 +57,5 @@ $(document).ready(() => {
 /* botones para rellenar el textarea */
    $('button.ejemplos').each( (_,y) => {
      'use strict';
-     console.log("entre222...");
      $(y).click( () => { dump(`input_examples/${$(y).text()}.txt`); });
    });
