@@ -4,23 +4,35 @@
 	<div class="row">
 		<div class="col s10 offset-s1 center">
 			<h1>CSV Validator</h1>
+            <div class="col l8 s12">
 			<h5>Introduzca su CSV en el cuadro que se muestra a continuación:</h5>
+            <textarea name="csvData" id="original"></textarea>
+            </div>
+            <div class="col l4 s12">
+            <h5>Suelte en este cuadro su fichero:</h5>
+            <div id="drag_and_drop" class="center">
+                              <img id="nube_verde" src="/img/cloud.svg" alt="Zona de subida de ficheros" class="responsive-img"/>
+                              <p>¡Suelte aquí su fichero!</p>
+                          </div>
+            </div>
 			<form action="/csv" method="post" id="form">
-        		<textarea name="csvData" id="original"></textarea>
                 <div class="row">
-                    <div class="col s6">
+                    <div class="col s12">
             		      <button class="btn-large waves-effect " type="submit" id="boton_enviar">ENVIAR</button>
                     </div>
-                    <div class="col s2">
-                      <button class="btn-large waves-effect ejemplos"  type="button" >input</button>
+                    <div class="col l4 s12">
+                      <button class="btn-large waves-effect"  type="button" >SUBIR TEXTO</button>
                     </div>
-                    <div class="col s2">
+                    <div class="col l2 s12">
+                      <button class="btn-large waves-effect ejemplos" id="boton_input_1" type="button" >input</button>
+                    </div>
+                    <div class="col l2 s12">
                       <button class="btn-large waves-effect ejemplos"  type="button" >input2</button>
                     </div>
-                    <div class="col s2">
+                    <div class="col l2 s12">
                       <button class="btn-large waves-effect ejemplos"  type="button" >input3</button>
                     </div>
-                    <div class="col s2">
+                    <div class="col l2 s12">
                       <button class="btn-large waves-effect ejemplos"  type="button" >input4</button>
                     </div>
                 </div>
