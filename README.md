@@ -2,8 +2,8 @@
 #Práctica: AJAX, ECMA6, ficheros y Node.js modules
 
 ##Bagdes
-[![David](https://img.shields.io/david/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani#info=dependencies&view=table)
-[![David](https://img.shields.io/david/dev/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani#info=devDependencies&view=table)
+[![David](https://img.shields.io/david/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani#info=dependencies&view=table)
+[![David](https://img.shields.io/david/dev/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani#info=devDependencies&view=table)
 
 ##For more information look at:
 
