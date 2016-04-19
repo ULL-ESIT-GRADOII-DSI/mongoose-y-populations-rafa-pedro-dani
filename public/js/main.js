@@ -60,27 +60,45 @@
         $('.button-collapse').sideNav();
     });
 
-    var dropZone = document.getElementById('drag_and_drop');
+    const handleDragOver = (evt) => {
+      evt.stopPropagation();
+      evt.preventDefault();
+
+      $('#drag_and_drop').css("background-color", "#aed581");
+      $('#drag_and_drop').css("animation", "breathing 2s ease-out infinite normal");
+    };
+
+    const handleFileSelect = (evt) => {
+      evt.stopPropagation();
+      evt.preventDefault();
+
+      let files = evt.dataTransfer.files; // FileList object.
+
+      $('#drag_and_drop').css("background-color", "#f1f8e9");
+      $('#drag_and_drop').css("animation", "none");
+
+      // files is a FileList of File objects. List some properties.
+      if (files[0].type.match('^text/.*$')){
+      let reader = new FileReader();
+      reader.onload = (e) => {
+      $("#original").val(e.target.result);
+      };
+      reader.readAsText(files[0]);
+      }
+    else{
+      alert("El fichero que se ha subido no es de tipo texto.")
+    }    
+    };
+
+    const handleDragLeave = (evt) => {
+      $('#drag_and_drop').css("background-color", "#f1f8e9");
+      $('#drag_and_drop').css("animation", "none");
+    };
+
+    let dropZone = document.getElementById('icono_nube_verde');
     dropZone.addEventListener('dragover', handleDragOver, false);
     dropZone.addEventListener('drop', handleFileSelect, false);
-
-    function handleDragOver(evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-        evt.target.style.animaiton = "breathing 2s ease-out infinite normal"; 
-        evt.target.style.background = "#7cb342";
-    }
-
-    function handleFileSelect(evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-
-        var files = evt.dataTransfer.files; // FileList object.
-
-        // files is a FileList of File objects. List some properties.
-        console.log(files);
-        evt.target.style.background = "#7cb342";
-      }
+    dropZone.addEventListener('dragleave', handleDragLeave, false);
 
     exports.main = this.main;
 
