@@ -5,11 +5,15 @@
 [![David](https://img.shields.io/david/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani#info=dependencies&view=table)
 [![David](https://img.shields.io/david/dev/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani#info=devDependencies&view=table)
 
+##Descripción de la práctica
+
+Siguiendo el guión de la práctica anterior, realizaremos el mismo ejemplo, pero ahora haremos uso de AJAX para que sea el servidor el que nos devuelva un JSON con la información de la tabla. También usaremos algunas de las técnicas incluidas en el nuevo estándar de JavaScript, el ECMA6 o JavaScript v6.
+
 ##For more information look at:
 
-* La sección *Práctica: Comma Separated Values. CSV* de los [apuntes](http://crguezl.github.io/pl-html/node11.html)
-* La [descripción de la práctica](https://casianorodriguezleon.gitbooks.io/pl1516/content/practicas/csv.html)
-* See it working at [CSV en GitHub Pages](http://crguezl.github.io/csv/)
+* La sección *Práctica: CSV usando Ajax* de los [apuntes](http://crguezl.github.io/pl-html/node12.html)
+* La [descripción de la práctica](https://casianorodriguezleon.gitbooks.io/pl1516/content/practicas/practicaajaxcsv.html)
+* See it working at [CSV en Heroku](https://cvsajax.herokuapp.com/)
 * See also [CSV](http://en.wikipedia.org/wiki/Comma-separated_values) at Wikipedia.
 
 Dependencias globales:
@@ -44,7 +48,7 @@ Hay que tener instaladas las gemas `sass` y `scss-lint`
 * [Campus Virtual DSI](https://campusvirtual.ull.es/1516/course/view.php?id=144)
 
 ###Página de la descripción de la práctica
-* [Descripción Práctica desde el campus](https://campusvirtual.ull.es/1516/mod/page/view.php?id=187375)
+* [Descripción Práctica desde el campus](https://campusvirtual.ull.es/1516/mod/page/view.php?id=189370)
 
 ###Páginas de los autores
 
