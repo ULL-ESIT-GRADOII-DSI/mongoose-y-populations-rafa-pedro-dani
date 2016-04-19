@@ -63,6 +63,21 @@ h5{
   font-size: 150%;
 }
 
+#boton_ficheros{
+  margin-top: 0px;
+  background-color: $verdefuerte !important;
+  width: 100%;
+  height: 54px;
+}
+
+#boton_ficheros:hover{
+  background-color: $verdeflojo !important;
+}
+
+.input-field{
+  margin-top: 10px;
+}
+
 .btn-large{
   margin-top: 10px;
   background-color: $verdefuerte !important;

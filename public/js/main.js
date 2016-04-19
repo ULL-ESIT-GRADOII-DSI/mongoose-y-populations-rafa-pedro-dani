@@ -70,13 +70,15 @@
             evt.stopPropagation();
             evt.preventDefault();
 
-            exports.caca = evt;
-            console.log(evt);
-
-            let files = evt.originalEvent.dataTransfer.files; // FileList object.
-
-            $('#drag_and_drop').css('background-color', '#f1f8e9');
-            $('#drag_and_drop').css('animation', 'none');
+            let files;
+            if (evt.currentTarget.name === 'subida_fichero') {
+                files = evt.target.files;
+            }
+            else {
+                files = evt.originalEvent.dataTransfer.files; // FileList object.
+                $('#drag_and_drop').css('background-color', '#f1f8e9');
+                $('#drag_and_drop').css('animation', 'none');
+            }
 
             // files is a FileList of File objects. List some properties.
             if (files[0].type.match('^text/.*$')) {
@@ -100,6 +102,7 @@
         $('#icono_nube_verde').bind('dragover', handleDragOver);
         $('#icono_nube_verde').bind('drop', handleFileSelect);
         $('#icono_nube_verde').bind('dragleave', handleDragLeave);
+        $('#boton_subir_fichero').bind('change', handleFileSelect);
 
     });
 
