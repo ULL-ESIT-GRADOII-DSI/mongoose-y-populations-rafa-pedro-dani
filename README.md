@@ -4,7 +4,7 @@
 ##Bagdes
 [![David](https://img.shields.io/david/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani#info=dependencies&view=table)
 [![David](https://img.shields.io/david/dev/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani#info=devDependencies&view=table)
-
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://p8dsi.herokuapp.com)
 ##Descripción de la práctica
 
 Siguiendo el guión de la práctica anterior, realizaremos el mismo ejemplo, pero ahora haremos uso de AJAX para que sea el servidor el que nos devuelva un JSON con la información de la tabla. También usaremos algunas de las técnicas incluidas en el nuevo estándar de JavaScript, el ECMA6 o JavaScript v6.
@@ -36,6 +36,7 @@ Hay que tener instaladas las gemas `sass` y `scss-lint`
 * heroku logs
 * `heroku config:set NPM_CONFIG_PRODUCTION=false` .Para que heroku instale las dependencias en devdependencies de [package.json] (package.json)
 * `heroku apps:destroy --app nombre_app` . Para eliminar una aplicación de tu cuenta de heroku.
+* `heroku git:remote -a nombre_app` . Para añadir un git remote de heroku
 ###Repositorio GitHuB
 
 * [Repositorio](https://github.com/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani)
