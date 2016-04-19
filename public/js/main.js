@@ -1,6 +1,8 @@
+/*jslint browser: true, this: true*/
+/*global
+*/
 ((exports) => {
     'use strict';
-
     const resultTemplate = `
     <br>
     <h4>Resultado CSV</h4>
@@ -37,10 +39,9 @@
                 localStorage.input = input;
             }
             $.get('/csv',
-                {input},
-                fillTable,
-                'json'
-            );
+                    {input},
+                    fillTable,
+                    'json');
         }
         return false;
     };
@@ -50,10 +51,11 @@
         if (window.localStorage && localStorage.original) {
             $('#original').val(localStorage.original);
         }
-
         // botones para rellenar el textarea
         $('button.ejemplos').each((_,y) => {
-            $(y).click(() => { dump(`input_examples/${$(y).text()}.txt`); });
+            $(y).click(() => {
+                dump(`input_examples/${$(y).text()}.txt`);
+            });
         });
 
         $('#form').submit(main);
@@ -73,8 +75,7 @@
             let files;
             if (evt.currentTarget.name === 'subida_fichero') {
                 files = evt.target.files;
-            }
-            else {
+            }else {
                 files = evt.originalEvent.dataTransfer.files; // FileList object.
                 $('#drag_and_drop').css('background-color', '#f1f8e9');
                 $('#drag_and_drop').css('animation', 'none');

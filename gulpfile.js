@@ -1,3 +1,7 @@
+/*jslint browser: true, this: true*/
+/*global
+    called cb
+*/
 'use strict';
 
 let gulp = require('gulp'),
@@ -7,12 +11,11 @@ let gulp = require('gulp'),
     jshint = require('gulp-jshint'),
     jscs = require('gulp-jscs'),
     scsslint = require('gulp-scss-lint');
-
-// Tarea que debería encapsular todo.
-// Tiene que recargar el servidor si se produce algún cambio
-//                    el navegador si se produce algún cambio
-//                    mantener la tarea watch de sass
-//                    ejecutar la tarea sass, por si hubo algún cambioee
+/* Tarea que debería encapsular todo.
+ Tiene que recargar el servidor si se produce algún cambio
+                    el navegador si se produce algún cambio
+                    mantener la tarea watch de sass
+                    ejecutar la tarea sass, por si hubo algún cambioee*/
 gulp.task('serve', ['browser-sync', 'sass:watch', 'sass']);
 // Browser sync, espera a que nodemon se reinicie y si lo hace, recarga el
 // navegador del cliente.
@@ -76,4 +79,4 @@ gulp.task('lint:scss', () => {
 
 });
 //tarea por defecto que ejecuta todo para que el gulp del postinstall ejecute esta tarea.
-gulp.task('default',['sass']);
+gulp.task('default', ['sass']);

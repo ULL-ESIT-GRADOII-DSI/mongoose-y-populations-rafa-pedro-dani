@@ -20,10 +20,10 @@ const calculate = (original) => {
       let error = false;
 
       // skip empty lines and comments
-      if (temp.match(/(^\s*$)|(^#.*)/)) continue; 
+      if (temp.match(/(^\s*$)|(^#.*)/)) continue;
       if (m) {
         result = m.map(removeQuotes);
-        error = (commonLength != m.length);
+        error = (commonLength !== m.length);
         let rowclass = error? 'error' : 'legal';
         r.push({ items: result, type: rowclass });
       }

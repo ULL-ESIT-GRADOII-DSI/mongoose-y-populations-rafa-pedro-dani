@@ -12,8 +12,7 @@
                          replace(/"\s*$/, '').
                          replace(/\\"/, '"');
         };
-
-        for (let t in lines) {
+        for(let t in lines) {
             if (lines.hasOwnProperty(t)) {
                 let temp = lines[t];
                 let m = temp.match(regexp);

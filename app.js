@@ -1,8 +1,11 @@
-'use strict'
-
+/*jslint browser: true, this: true*/
+/*global
+    __dirname
+*/
+'use strict';
 const express = require('express'),
-      logger = require('morgan'),
-      bodyParser = require('body-parser');
+    logger = require('morgan'),
+    bodyParser = require('body-parser');
 
 let app = express();
 
@@ -25,13 +28,13 @@ app.use(logger('dev'));
 
 // Guardamos las rutas que nos proporciona index en index
 const index = require('./routes/index'),
-      csv = require('./routes/csv');
+    csv = require('./routes/csv');
 
 
 // Capturamos la variable de entorno NODE_ENV
 const env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;
-app.locals.ENV_DEVELOPMENT = env == 'development';
+app.locals.ENV_DEVELOPMENT = env === 'development';
 
 
 // Rutas. Por defecto, que vaya al index.ejs

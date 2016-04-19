@@ -1,3 +1,7 @@
+/*jslint browser: true, this: true*/
+/*global
+    require  __dirname
+*/
 "use strict";
 
 const express = require('express');
@@ -15,14 +19,14 @@ app.use(express.static(__dirname + '/public'));
 
 const calculate = require('XXXXXXXXXXXXXXXXXX');
 
-app.get('/', (request, response) => {     
-  XXXXXXXXXXXXXXXXXXXXXXXX X XXXXXX XXXX XXXXXXXXX XXX
+app.get('/', (request, response) => {
+  XXXXXXXXXXXXXXXXXXXXXXXX X XXXXXX XXXX XXXXXXXXX XXX;
 });
 
 app.get('/csv', (request, response) => {
-  XXXXXXXXXXXXXXX XXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX XXX
+  XXXXXXXXXXXXXXX XXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX XXX;
 });
 
 app.listen(app.get('port'), () => {
-    console.log(`Node app is running at localhost: ${app.get('port')}` );
+    console.log(`Node app is running at localhost: ${app.get('port')}`);
 });
