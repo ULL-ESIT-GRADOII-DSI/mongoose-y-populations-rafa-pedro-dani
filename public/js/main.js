@@ -4,9 +4,9 @@
     const resultTemplate = `
     <br>
     <h4>Resultado CSV</h4>
-    <table class="stripped responsive-table bordered" id="result">
+    <table class='stripped responsive-table bordered' id='result'>
         <% _.each(rows, (row) => { %>
-            <tr class="<%=row.type%>">
+            <tr class='<%=row.type%>'>
                 <% _.each(row.items, (name) =>{ %>
                     <td><%= name %></td>
                 <% }); %>
@@ -57,48 +57,51 @@
         });
 
         $('#form').submit(main);
-        $('.button-collapse').sideNav();
+
+        const handleDragOver = (evt) => {
+            evt.stopPropagation();
+            evt.preventDefault();
+
+            $('#drag_and_drop').css('background-color', '#aed581');
+            $('#drag_and_drop').css('animation', 'breathing 2s ease-out infinite normal');
+        };
+
+        const handleFileSelect = (evt) => {
+            evt.stopPropagation();
+            evt.preventDefault();
+
+            exports.caca = evt;
+            console.log(evt);
+
+            let files = evt.originalEvent.dataTransfer.files; // FileList object.
+
+            $('#drag_and_drop').css('background-color', '#f1f8e9');
+            $('#drag_and_drop').css('animation', 'none');
+
+            // files is a FileList of File objects. List some properties.
+            if (files[0].type.match('^text/.*$')) {
+                let reader = new FileReader();
+
+                reader.onload = (e) => {
+                    $('#original').val(e.target.result);
+                };
+
+                reader.readAsText(files[0]);
+            } else {
+                alert('El fichero que se ha subido no es de tipo texto.');
+            }
+        };
+
+        const handleDragLeave = () => {
+            $('#drag_and_drop').css('background-color', '#f1f8e9');
+            $('#drag_and_drop').css('animation', 'none');
+        };
+
+        $('#icono_nube_verde').bind('dragover', handleDragOver);
+        $('#icono_nube_verde').bind('drop', handleFileSelect);
+        $('#icono_nube_verde').bind('dragleave', handleDragLeave);
+
     });
-
-    const handleDragOver = (evt) => {
-      evt.stopPropagation();
-      evt.preventDefault();
-
-      $('#drag_and_drop').css("background-color", "#aed581");
-      $('#drag_and_drop').css("animation", "breathing 2s ease-out infinite normal");
-    };
-
-    const handleFileSelect = (evt) => {
-      evt.stopPropagation();
-      evt.preventDefault();
-
-      let files = evt.dataTransfer.files; // FileList object.
-
-      $('#drag_and_drop').css("background-color", "#f1f8e9");
-      $('#drag_and_drop').css("animation", "none");
-
-      // files is a FileList of File objects. List some properties.
-      if (files[0].type.match('^text/.*$')){
-      let reader = new FileReader();
-      reader.onload = (e) => {
-      $("#original").val(e.target.result);
-      };
-      reader.readAsText(files[0]);
-      }
-    else{
-      alert("El fichero que se ha subido no es de tipo texto.")
-    }    
-    };
-
-    const handleDragLeave = (evt) => {
-      $('#drag_and_drop').css("background-color", "#f1f8e9");
-      $('#drag_and_drop').css("animation", "none");
-    };
-
-    let dropZone = document.getElementById('icono_nube_verde');
-    dropZone.addEventListener('dragover', handleDragOver, false);
-    dropZone.addEventListener('drop', handleFileSelect, false);
-    dropZone.addEventListener('dragleave', handleDragLeave, false);
 
     exports.main = this.main;
 

@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
 const express = require('express'),
-      calc = require('../src/csv');
+      calc = require('../src/js/csv');
 
 const router = express.Router();
 

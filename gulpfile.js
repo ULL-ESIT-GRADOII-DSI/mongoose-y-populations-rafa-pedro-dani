@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 let gulp = require('gulp'),
     nodemon = require('gulp-nodemon'),
@@ -42,7 +42,7 @@ gulp.task('nodemon', () => {
 // Tarea que compila todos los sass del directorio /public/sass y los coloca
 // en /public/css.
 gulp.task('sass', () => {
-    return gulp.src('./public/sass/*.scss')
+    return gulp.src('./src/sass/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./public/css'));
 });
@@ -50,21 +50,21 @@ gulp.task('sass', () => {
 // Esta tarea vigila el directorio /public/sass y relanza la tarea sass en
 // en caso de que cambie algún fichero.
 gulp.task('sass:watch', () => {
-    gulp.watch('./public/sass/*.scss', ['sass']);
+    gulp.watch('./src/sass/*.scss', ['sass']);
 });
 
 gulp.task('lint', ['lint:jshint', 'lint:jscs', 'lint:scss']);
 
 // Tarea para pasar el JSHint a el código
 gulp.task('lint:jshint', () => {
-    gulp.src(['public/js/*.js'])
+    gulp.src(['public/js/*.js', 'src/*.js'])
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
 // Tarea para pasar el JSCS a el código
 gulp.task('lint:jscs', () => {
-    return gulp.src(['gulpfile.js', 'public/js/*.js', 'routes/*.js'])
+    return gulp.src(['gulpfile.js', 'public/js/*.js', 'routes/*.js', 'src/*.js'])
         .pipe(jscs())
         .pipe(jscs.reporter());
 });
