@@ -42,9 +42,14 @@ Hay que tener instaladas las gemas `sass` y `scss-lint`
 
 * [Repositorio](https://github.com/ULL-ESIT-GRADOII-DSI/localstorage-jquery-underscore-express-sass-heroku-rafa-pedro-dani)
 
-###Página de la práctica en Heroku
+###Página de la práctica en C9
 
-* [Web](http://p8dsi.herokuapp.com/)
+Dar con el botón derecho en Run (El que está arriba, a la derecha de Preview) y hacer
+click en Express.
+
+Esto enciende el servidor en la página de despliegue:
+
+[Página de Despliegue](http://dsi-p9.rafaherrero.c9users.io/)
 
 ###Página del campus de la asignatura
 * [Campus Virtual DSI](https://campusvirtual.ull.es/1516/course/view.php?id=144)
