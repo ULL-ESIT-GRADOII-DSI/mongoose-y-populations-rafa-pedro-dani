@@ -36,7 +36,7 @@ Hay que tener instaladas las gemas `sass` y `scss-lint`
 * heroku logs
 * `heroku config:set NPM_CONFIG_PRODUCTION=false` .Para que heroku instale las dependencias en devdependencies de [package.json] (package.json)
 * `heroku apps:destroy --app nombre_app` . Para eliminar una aplicación de tu cuenta de heroku.
-* `heroku git:remote -a nombre_app` . Para añadir un git remote de heroku
+* `heroku git:remote -a nombre_app` . Para añadir un git remote de herok
 
 ###Repositorio GitHuB
 
