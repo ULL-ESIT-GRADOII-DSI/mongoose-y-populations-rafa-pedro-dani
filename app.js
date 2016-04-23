@@ -1,6 +1,6 @@
 /*jslint browser: true, this: true*/
 /*global
-    __dirname
+    __dirname, process
 */
 'use strict';
 const express = require('express'),
@@ -28,14 +28,12 @@ app.use(logger('dev'));
 
 // Guardamos las rutas que nos proporciona index en index
 const index = require('./routes/index'),
-    csv = require('./routes/csv');
-
+      csv = require('./routes/csv');
 
 // Capturamos la variable de entorno NODE_ENV
 const env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;
-app.locals.ENV_DEVELOPMENT = env === 'development';
-
+app.locals.ENV_DEVELOPMENT = (env === 'development');
 
 // Rutas. Por defecto, que vaya al index.ejs
 app.use('/', index);
@@ -53,7 +51,7 @@ app.use((req, res, next) => {
 // Si estamos en un entorno de desarrollo (que se pasa poniéndolo en la consola)
 // Mostramos un error con la pila de llamadas para poder debugear
 if (app.get('env') === 'development') {
-    app.use((err, req, res, next) => {
+    app.use((err, req, res) => {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -66,7 +64,7 @@ if (app.get('env') === 'development') {
 // En cualquier otro caso, suponemos que NO estamos en un entorno de desarrollo
 // Por lo que iniciamos el modo producción, en el que no se muestra la pila de
 // llamadas
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
     res.status(err.status || 500);
     res.render('error', {
         message: 'Esta página no existe :(',
