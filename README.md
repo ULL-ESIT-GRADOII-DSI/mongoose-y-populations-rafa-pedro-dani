@@ -1,5 +1,5 @@
 #ETSII ULL Grado de Informatica 
-#Práctica: AJAX, ECMA6, ficheros y Node.js modules
+#Práctica: CSV usando MongoDB
 
 ##Bagdes
 [![David](https://img.shields.io/david/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani#info=dependencies&view=table)
@@ -7,7 +7,11 @@
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://p8dsi.herokuapp.com)
 ##Descripción de la práctica
 
-Siguiendo el guión de la práctica anterior, realizaremos el mismo ejemplo, pero ahora haremos uso de AJAX para que sea el servidor el que nos devuelva un JSON con la información de la tabla. También usaremos algunas de las técnicas incluidas en el nuevo estándar de JavaScript, el ECMA6 o JavaScript v6.
+A los requisitos de la práctica CSV usando Ajax anterior, le añadimos
+Un botón guardar. Cuando se hace click en dicho botón se guarda la entrada actual en una base de datos MongoDB.
+El contenidode la entrada actual se guarda con un nombre que se solicita previamente al usuario
+Usaremos Mongoose para acceder a la base de datos
+Sólo se guardan hasta un límite de cuatro ejemplos en la Base de Datos. Cuando el número excede del límite se borra uno de los anteriores y se guarda la nueva entrada
 
 ##For more information look at:
 
