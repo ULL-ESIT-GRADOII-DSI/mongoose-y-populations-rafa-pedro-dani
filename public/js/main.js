@@ -1,6 +1,5 @@
 /*jslint browser: true, this: true*/
-/*global
-*/
+
 ((exports) => {
     'use strict';
     const resultTemplate = `

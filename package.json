@@ -43,11 +43,12 @@
     "node": "^5.6.0"
   },
   "dependencies": {
-    "express": "^4.13.4",
-    "ejs": "^2.4.1",
-    "morgan": "^1.7.0",
     "body-parser": "^1.15.0",
-    "bower": "1.6.5"
+    "bower": "1.6.5",
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.13",
+    "morgan": "^1.7.0"
   },
   "devDependencies": {
     "browser-sync": "^2.11.2",

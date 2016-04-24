@@ -4,3 +4,4 @@ vendor
 public/vendor
 public/sass/.sass-cache/
 public/css/
+db/data
