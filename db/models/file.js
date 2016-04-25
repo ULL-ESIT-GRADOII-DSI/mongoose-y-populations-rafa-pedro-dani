@@ -1,11 +1,11 @@
 (() => {
     'use strict';
     const mongoose = require('mongoose');
-    
-    var FileShema = mongoose.Schema({
+
+    let FileShema = mongoose.Schema({
         filename: String,
         data: String
     });
 
-    module.exports = mongoose.model("File",	FileShema);
+    module.exports = mongoose.model("File", FileShema);
 })();

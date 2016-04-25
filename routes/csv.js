@@ -8,20 +8,6 @@
 
     const File = require('../db/models/file.js');
 
-    function newfile(filename, data) {
-        let	f1 = new File({filename, data});
-
-        let	p1 = f1.save((err) => {
-            if (err) {
-                console.log(`Hubieron errores:\n${err}`);
-                return err;
-            }
-            console.log(`Salvado el fichero ${f1}`);
-        });
-
-        return p1;
-    }
-
     router.get('/', (req, res) => {
         res.json(calc(req.query.input));
     });
@@ -36,25 +22,67 @@
 
     */
 
+    function guardarFichero(filename, data, res) {
+        let	f1 = new File({filename, data});
+        f1.save((err) => {
+            if (err) {
+                console.log(`Hubieron errores:\n${err}`);
+                res.status(500).send('Mongo error saving file');
+                return err;
+            }
+            console.log(`Salvado el fichero ${f1}`);
+            res.status(200).send('Inserted in database');
+            mongoose.connection.close();
+        });
+    }
+
     router.post('/', (req, res) => {
         mongoose.connect('mongodb://localhost/test');
 
-        File.count({}, function(err, count) {
-            console.log(`Numbero de ficheros: ${count}`);
-
-            if (count > 4) {
-                // TODO: Si ya hay más de 4 elementos, eliminar el más antiguo
-                // Para conseguir el más antiguo hay que hacer db.files.findOne();
-                // Como tienen un timestamp, sin parámetros devuelve el elemento más antiguos
-                console.log('Sacar el más viejo');
-            }
-            console.log('Ahora, insertar');
-
-            var prom = newfile(req.body.filename, req.body.data);
-
-            Promise.all([prom]).then(() => {
-                res.status(200).send('Inserted in database');
+        File.findOne({filename: req.body.filename}, (err, files) => {
+            console.log(`Estamos en el buscar un fichero solo`);
+            if (err) {
+                console.log(`Hubo un error en fichero singular`);
+                res.status(500).send('Mongo error when finding that file');
                 mongoose.connection.close();
+                return err;
+            }
+            if (files != null) {
+                res.status(400).send('There is alrady a file with that name');
+                mongoose.connection.close();
+                return;
+            }
+
+            File.count({}, (err, count) => {
+                if (err) {
+                    console.log(`Hubieron errores:\n${err}`);
+                    res.status(500).send('Mongo error counting document');
+                    return err;
+                }
+                console.log(`Numero de ficheros: ${count}`);
+
+                if (count > 3) {
+                    File.findOne({}, (err, elimina) => {
+                        if (err) {
+                            console.log(`Hubieron errores:\n${err}`);
+                            res.status(500).send('Mongo error finding document');
+                            return err;
+                        }
+
+                        console.log(`Se va a eliminar este elemento: ${elimina}`);  //mostraria el elemento mas viejo.
+                        elimina.remove({}, (err, removed) => {
+                            if (err) {
+                                console.log(`Hubieron errores:\n${err}`);
+                                res.status(500).send('Mongo error removing document');
+                                return err;
+                            }
+                            console.log(`Se acaba de eliminar ${removed}`);
+                            guardarFichero(req.body.filename,req.body.data, res);
+                        });
+                    });
+                } else {
+                    guardarFichero(req.body.filename,req.body.data, res);
+                }
             });
         });
     });
@@ -74,17 +102,40 @@
     */
 
     router.get('/:fichero', (req, res) => {
+        mongoose.connect('mongodb://localhost/test');
+        let prom = null;
+
         if (req.params.fichero === '*') {
-            //TODO: Hacer un find y devolver todos los ficheros en un array
-            console.log(`Hay que devolver un array con todos los ficheros`);
-            res.json([1, 2, 3]);
+            prom = File.find({}, (err, files) => {
+                console.log(`Estamos en el asterisco`);
+                if (err) {
+                    console.log(`Hubo un error en *`);
+                    res.status(500).send('Mongo error finding document');
+                    return err;
+                }
+                console.log(`Hay que devolver un array con todos los ficheros`);
+                let ficheros = [];
+                files.forEach((file, i) => {
+                    ficheros.push({filename: file.filename, data: file.data});
+                });
+                res.json(ficheros);
+            });
         } else {
-            //TODO: Hacer un find del nombre del fichero, y devolverlo
+            prom = File.findOne({filename: req.params.fichero}, (err, files) => {
+                console.log(`Estamos en el buscar un fichero solo`);
+                if (err) {
+                    console.log(`Hubo un error en fichero singular`);
+                    res.status(500).send('Mongo error finding document');
+                    return err;
+                }
+                console.log(`Tuve que buscar el fichero exacto y me da: ${files}`);
+                res.json({filename: files.filename, data: files.data});
+            });
             console.log(`Hay que buscar en la base de datos: ${req.params.fichero}`);
-            res.json({filename: 'input.txt', data: 'producto",           "precio"\n' +
-                                                   '"camisa",             "' +
-                                                   '4,3"\n"libro de O\\"Reilly", "7,2"\n'});
         }
+        Promise.all([prom]).then(() => {
+            mongoose.connection.close();
+        });
     });
 
     module.exports = router;
