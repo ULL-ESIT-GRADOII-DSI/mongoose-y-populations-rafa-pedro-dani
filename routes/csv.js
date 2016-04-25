@@ -2,7 +2,7 @@
     'use strict';
     const express = require('express'),
           mongoose = require('mongoose'),
-          calc = require('../src/js/csv');
+          calc = require('../assets/modules/csv');
 
     const router = express.Router();
 

@@ -39,6 +39,13 @@ app.locals.ENV_DEVELOPMENT = (env === 'development');
 app.use('/', index);
 app.use('/csv', csv);
 
+app.use(require('node-sass-middleware')({
+    src: `${__dirname}/assets/frontend`,
+    dest: `${__dirname}/public`,
+    outputStyle: 'compressed',
+    sourceMap: false
+}));
+
 app.use(express.static(`${__dirname}/public`));
 
 // Si se produce un error en la ruta, enviamos un not found
