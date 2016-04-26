@@ -16,8 +16,6 @@
     </table>
     `;
 
-
-
     /* Volcar la tabla con el resultado en el HTML */
     const fillTable = (rows) => {
         let template = _.template(resultTemplate)({rows});
@@ -26,6 +24,12 @@
     /*Constante que vuelca el contenido de los ficheros de
     prueba en el text area que tiene identificador original*/
     const dump = (fileName) => {
+        $.get(fileName, (data) => {
+            $('#original').val(data);
+        });
+    };
+
+    const dumptext = (fileName) => {
         $.get(fileName, (data) => {
             $('#original').val(data);
         });
@@ -101,21 +105,34 @@
             $.post('/csv', {
 	            filename: nombrefichero,
 	            data: $('#original').val()
-            }, (res) => {} , 'json').fail((err)=>{if(err.status)alert("Ya existe un fichero con el mismo nombre en la base de datos. Introduzca otro.")});
+            }, (res) => {} , 'json').fail((err)=>{if(err.status==400)alert("Ya existe un fichero con el mismo nombre en la base de datos. Introduzca otro.")});
 
         });
 
-        $.get('/csv/*', {}, (data) => {
-            archivosbd = data;
+        $.get('/csv/*', {}, (archivosbd) => {
+            let template = _.template(archivosenbd)({archivosbd});
+            $('#contenido_bd').html(template);
+            $('.dropdown-button').dropdown({
+                inDuration: 300,
+                outDuration: 225,
+                gutter: 0, // Spacing from edge
+                belowOrigin: false, // Displays dropdown below the button
+            });
+            console.log($('li.listabd'));
+            $('li.listabd').each((_,y) => {
+                $(y).click(() => {
+                    dump(`/csv/holahola.txt`);
+                });
+            });
         });
 
         const archivosenbd =`
+        <a class='dropdown-button btn waves-effect'href='#' data-activates='dropdown1'>Ficheros contenidos en la base de datos</a>
         <ul id='dropdown1' class='dropdown-content'>
             <% archivosbd.forEach((item, i) =>{ %>
-                <li><%= item[i].filename %></li>
-            <% } %>
+                <li class="listabd"><a><%= i+1 %>.- <%= item.filename %></a></li>
+            <% }); %>
         </ul>`
-
 
         const handleDragLeave = () => {
             $('#drag_and_drop').css('background-color', '#e1f5fe');

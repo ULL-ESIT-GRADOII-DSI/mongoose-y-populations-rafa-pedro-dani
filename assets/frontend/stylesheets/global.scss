@@ -83,6 +83,11 @@ h5{
   background-color: $verdeflojo !important;
 }
 
+.dropdown-content li > a, .dropdown-content li > span{
+  color: $verdeflojo !important;
+}
+
+
 #boton_ficheros{
   margin-top: 0px;
   background-color: $verdefuerte !important;
