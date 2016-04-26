@@ -2,9 +2,9 @@
 #Práctica: CSV usando MongoDB
 
 ##Bagdes
-[![David](https://img.shields.io/david/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani#info=dependencies&view=table)
-[![David](https://img.shields.io/david/dev/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/ajax-ecma6-ficheros-rafa-pedro-dani#info=devDependencies&view=table)
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://p8dsi.herokuapp.com)
+[![David](https://img.shields.io/david/ULL-ESIT-GRADOII-DSI/mongodb-mongoose-csv-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/mongodb-mongoose-csv-rafa-pedro-dani#info=dependencies&view=table)
+[![David](https://img.shields.io/david/dev/ULL-ESIT-GRADOII-DSI/mongodb-mongoose-csv-rafa-pedro-dani.svg?style=flat-square)](https://david-dm.org/ULL-ESIT-GRADOII-DSI/mongodb-mongoose-csv-rafa-pedro-dani#info=devDependencies&view=table)
+
 ##Descripción de la práctica
 
 A los requisitos de la práctica CSV usando Ajax anterior, le añadimos
@@ -59,7 +59,7 @@ Esto enciende el servidor en la página de despliegue:
 * [Campus Virtual DSI](https://campusvirtual.ull.es/1516/course/view.php?id=144)
 
 ###Página de la descripción de la práctica
-* [Descripción Práctica desde el campus](https://campusvirtual.ull.es/1516/mod/page/view.php?id=189370)
+* [Descripción Práctica desde el campus](https://campusvirtual.ull.es/1516/mod/page/view.php?id=191238)
 
 ###Páginas de los autores
 
