@@ -26,7 +26,7 @@
         let	f1 = new File({filename, data});
         f1.save((err) => {
             if (err) {
-                console.log(`Hubieron errores:\n${err}`);
+                console.log(`Hubo errores:\n${err}`);
                 res.status(500).send('Mongo error saving file');
                 return err;
             }

@@ -16,6 +16,8 @@
     </table>
     `;
 
+
+
     /* Volcar la tabla con el resultado en el HTML */
     const fillTable = (rows) => {
         let template = _.template(resultTemplate)({rows});
@@ -63,7 +65,7 @@
             evt.stopPropagation();
             evt.preventDefault();
 
-            $('#drag_and_drop').css('background-color', '#aed581');
+            $('#drag_and_drop').css('background-color', '#81d4fa');
             $('#drag_and_drop').css('animation', 'breathing 2s ease-out infinite normal');
         };
 
@@ -76,7 +78,7 @@
                 files = evt.target.files;
             }else {
                 files = evt.originalEvent.dataTransfer.files; // FileList object.
-                $('#drag_and_drop').css('background-color', '#f1f8e9');
+                $('#drag_and_drop').css('background-color', '#e1f5fe');
                 $('#drag_and_drop').css('animation', 'none');
             }
 
@@ -94,8 +96,29 @@
             }
         };
 
+        $("#boton_guardar").click(() => {
+            let nombrefichero = prompt ("Introduzca el nombre de su fichero", "Texto 1");
+            $.post('/csv', {
+	            filename: nombrefichero,
+	            data: $('#original').val()
+            }, (res) => {} , 'json').fail((err)=>{if(err.status)alert("Ya existe un fichero con el mismo nombre en la base de datos. Introduzca otro.")});
+
+        });
+
+        $.get('/csv/*', {}, (data) => {
+            archivosbd = data;
+        });
+
+        const archivosenbd =`
+        <ul id='dropdown1' class='dropdown-content'>
+            <% archivosbd.forEach((item, i) =>{ %>
+                <li><%= item[i].filename %></li>
+            <% } %>
+        </ul>`
+
+
         const handleDragLeave = () => {
-            $('#drag_and_drop').css('background-color', '#f1f8e9');
+            $('#drag_and_drop').css('background-color', '#e1f5fe');
             $('#drag_and_drop').css('animation', 'none');
         };
 
