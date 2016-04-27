@@ -25,13 +25,7 @@
     prueba en el text area que tiene identificador original*/
     const dump = (fileName) => {
         $.get(fileName, (data) => {
-            $('#original').val(data);
-        });
-    };
-
-    const dumptext = (fileName) => {
-        $.get(fileName, (data) => {
-            $('#original').val(data);
+            $('#original').val(data.data);
         });
     };
 
@@ -109,6 +103,10 @@
 
         });
 
+        //$("#contenido_bd").click(() => {
+            //TODO: llamar a funcion para que actualice
+        //});
+
         $.get('/csv/*', {}, (archivosbd) => {
             let template = _.template(archivosenbd)({archivosbd});
             $('#contenido_bd').html(template);
@@ -118,10 +116,9 @@
                 gutter: 0, // Spacing from edge
                 belowOrigin: false, // Displays dropdown below the button
             });
-            console.log($('li.listabd'));
             $('li.listabd').each((_,y) => {
                 $(y).click(() => {
-                    dump(`/csv/holahola.txt`);
+                    dump(`/csv/${$(y).text()}`);
                 });
             });
         });
@@ -130,7 +127,7 @@
         <a class='dropdown-button btn waves-effect'href='#' data-activates='dropdown1'>Ficheros contenidos en la base de datos</a>
         <ul id='dropdown1' class='dropdown-content'>
             <% archivosbd.forEach((item, i) =>{ %>
-                <li class="listabd"><a><%= i+1 %>.- <%= item.filename %></a></li>
+                <li class="listabd"><a><%= item.filename %></a></li>
             <% }); %>
         </ul>`
 
