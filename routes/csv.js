@@ -7,7 +7,10 @@
     const router = express.Router();
 
     const File = require('../db/models/file.js');
-    mongoose.connect('mongodb://localhost/test');
+    mongoose.connect('mongodb://localhost/test', (err)=> {
+        console.log("No tienes mongod encendido");
+        throw err;
+    });
 
     router.get('/', (req, res) => {
         res.json(calc(req.query.input));
