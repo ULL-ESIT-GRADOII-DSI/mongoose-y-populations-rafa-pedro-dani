@@ -25,14 +25,13 @@
 
     function guardarFichero(filename, data, res) {
         let	f1 = new File({filename, data});
-        f1.save((err) => {
+        return f1.save((err) => {
             if (err) {
                 console.log(`Hubo errores:\n${err}`);
                 res.status(500).send('Mongo error saving file');
                 return err;
             }
             console.log(`Salvado el fichero ${f1}`);
-            res.status(200).send('Inserted in database');
         });
     }
 
@@ -51,7 +50,7 @@
 
             File.count({}, (err, count) => {
                 if (err) {
-                    console.log(`Hubieron errores:\n${err}`);
+                    console.log(`Hubo errores:\n${err}`);
                     res.status(500).send('Mongo error counting document');
                     return err;
                 }
@@ -60,7 +59,7 @@
                 if (count > 3) {
                     File.findOne({}, (err, elimina) => {
                         if (err) {
-                            console.log(`Hubieron errores:\n${err}`);
+                            console.log(`Hubo errores:\n${err}`);
                             res.status(500).send('Mongo error finding document');
                             return err;
                         }
@@ -68,16 +67,23 @@
                         console.log(`Se va a eliminar este elemento: ${elimina}`);  //mostraria el elemento mas viejo.
                         elimina.remove({}, (err, removed) => {
                             if (err) {
-                                console.log(`Hubieron errores:\n${err}`);
+                                console.log(`Hubo errores:\n${err}`);
                                 res.status(500).send('Mongo error removing document');
                                 return err;
                             }
                             console.log(`Se acaba de eliminar ${removed}`);
-                            guardarFichero(req.body.filename,req.body.data, res);
+                            let prom = guardarFichero(req.body.filename,req.body.data, res);
+                            Promise.all([prom]).then(()=>{
+                                console.log("Acabo de terminar de meter en la base de datos el fichero, le envio ok al cliente");
+                                res.status(200).send('Inserted in database');
+                            })
                         });
                     });
                 } else {
-                    guardarFichero(req.body.filename,req.body.data, res);
+                    let prom = guardarFichero(req.body.filename,req.body.data, res);
+                    Promise.all([prom]).then(()=>{
+                        res.status(200).send('Inserted in database');
+                    })
                 }
             });
         });

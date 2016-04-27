@@ -96,13 +96,17 @@
 
         $("#boton_guardar").click(() => {
             let nombrefichero = prompt ("Introduzca el nombre de su fichero", "Texto 1");
+            console.log("Vamos a hacer la petición post");
             $.post('/csv', {
 	            filename: nombrefichero,
 	            data: $('#original').val()
-            }, (res) => {} , 'json').fail((err)=>{
+            }, (res) => {
+                console.log("Terminé la peticion post")
+                console.log(res);
+                actualizar();
+            } , 'text').fail((err)=>{
                 if(err.status==400)alert("Ya existe un fichero con el mismo nombre en la base de datos. Introduzca otro.")
             });
-            actualizar();
         });
 
         const archivosenbd =`
