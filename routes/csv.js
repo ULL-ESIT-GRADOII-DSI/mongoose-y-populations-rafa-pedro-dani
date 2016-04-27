@@ -8,8 +8,12 @@
 
     const File = require('../db/models/file.js');
     mongoose.connect('mongodb://localhost/test', (err)=> {
-        console.log("No tienes mongod encendido");
-        throw err;
+        if(err) {
+            console.log("No tienes mongod encendido");
+            console.log(err);
+            throw err;
+        }
+        console.log("Conectado a mongo");
     });
 
     router.get('/', (req, res) => {
