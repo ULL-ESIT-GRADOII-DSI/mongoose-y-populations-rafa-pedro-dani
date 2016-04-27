@@ -51,11 +51,11 @@
             $('#original').val(localStorage.original);
         }
         // botones para rellenar el textarea
-        $('button.ejemplos').each((_,y) => {
-            $(y).click(() => {
-                dump(`input_examples/${$(y).text()}.txt`);
-            });
-        });
+        //$('button.ejemplos').each((_,y) => {
+        //    $(y).click(() => {
+        //        dump(`input_examples/${$(y).text()}.txt`);
+        //    });
+        //});
 
         $('#form').submit(main);
 
@@ -100,7 +100,7 @@
 	            filename: nombrefichero,
 	            data: $('#original').val()
             }, (res) => {} , 'json').fail((err)=>{if(err.status==400)alert("Ya existe un fichero con el mismo nombre en la base de datos. Introduzca otro.")});
-
+            actualizar();
         });
 
         //$("#contenido_bd").click(() => {
@@ -130,6 +130,25 @@
                 <li class="listabd"><a><%= item.filename %></a></li>
             <% }); %>
         </ul>`
+
+        const actualizar = () => {
+            console.log("actualiceeee");
+          $.get('/csv/*', {}, (archivosbd) => {
+            let template = _.template(archivosenbd)({archivosbd});
+            $('#contenido_bd').html(template);
+            $('.dropdown-button').dropdown({
+                inDuration: 300,
+                outDuration: 225,
+                gutter: 0, // Spacing from edge
+                belowOrigin: false, // Displays dropdown below the button
+            });
+            $('li.listabd').each((_,y) => {
+                $(y).click(() => {
+                    dump(`/csv/${$(y).text()}`);
+                });
+            });
+        });
+        };
 
         const handleDragLeave = () => {
             $('#drag_and_drop').css('background-color', '#e1f5fe');
