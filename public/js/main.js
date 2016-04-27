@@ -99,28 +99,10 @@
             $.post('/csv', {
 	            filename: nombrefichero,
 	            data: $('#original').val()
-            }, (res) => {} , 'json').fail((err)=>{if(err.status==400)alert("Ya existe un fichero con el mismo nombre en la base de datos. Introduzca otro.")});
+            }, (res) => {} , 'json').fail((err)=>{
+                if(err.status==400)alert("Ya existe un fichero con el mismo nombre en la base de datos. Introduzca otro.")
+            });
             actualizar();
-        });
-
-        //$("#contenido_bd").click(() => {
-            //TODO: llamar a funcion para que actualice
-        //});
-
-        $.get('/csv/*', {}, (archivosbd) => {
-            let template = _.template(archivosenbd)({archivosbd});
-            $('#contenido_bd').html(template);
-            $('.dropdown-button').dropdown({
-                inDuration: 300,
-                outDuration: 225,
-                gutter: 0, // Spacing from edge
-                belowOrigin: false, // Displays dropdown below the button
-            });
-            $('li.listabd').each((_,y) => {
-                $(y).click(() => {
-                    dump(`/csv/${$(y).text()}`);
-                });
-            });
         });
 
         const archivosenbd =`
@@ -132,23 +114,24 @@
         </ul>`
 
         const actualizar = () => {
-            console.log("actualiceeee");
-          $.get('/csv/*', {}, (archivosbd) => {
-            let template = _.template(archivosenbd)({archivosbd});
-            $('#contenido_bd').html(template);
-            $('.dropdown-button').dropdown({
-                inDuration: 300,
-                outDuration: 225,
-                gutter: 0, // Spacing from edge
-                belowOrigin: false, // Displays dropdown below the button
-            });
-            $('li.listabd').each((_,y) => {
-                $(y).click(() => {
-                    dump(`/csv/${$(y).text()}`);
+            $.get('/csv/*', {}, (archivosbd) => {
+                let template = _.template(archivosenbd)({archivosbd});
+                $('#contenido_bd').html(template);
+                $('.dropdown-button').dropdown({
+                    inDuration: 300,
+                    outDuration: 225,
+                    gutter: 0, // Spacing from edge
+                    belowOrigin: false, // Displays dropdown below the button
+                });
+                $('li.listabd').each((_,y) => {
+                    $(y).click(() => {
+                        dump(`/csv/${$(y).text()}`);
+                    });
                 });
             });
-        });
         };
+
+        actualizar();
 
         const handleDragLeave = () => {
             $('#drag_and_drop').css('background-color', '#e1f5fe');

@@ -7,6 +7,7 @@
     const router = express.Router();
 
     const File = require('../db/models/file.js');
+    mongoose.connect('mongodb://localhost/test');
 
     router.get('/', (req, res) => {
         res.json(calc(req.query.input));
@@ -32,24 +33,19 @@
             }
             console.log(`Salvado el fichero ${f1}`);
             res.status(200).send('Inserted in database');
-            mongoose.connection.close();
         });
     }
 
     router.post('/', (req, res) => {
-        mongoose.connect('mongodb://localhost/test');
-
         File.findOne({filename: req.body.filename}, (err, files) => {
             console.log(`Estamos en el buscar un fichero solo`);
             if (err) {
                 console.log(`Hubo un error en fichero singular`);
                 res.status(500).send('Mongo error when finding that file');
-                mongoose.connection.close();
                 return err;
             }
             if (files != null) {
                 res.status(400).send('There is alrady a file with that name');
-                mongoose.connection.close();
                 return;
             }
 
@@ -102,7 +98,6 @@
     */
 
     router.get('/:fichero', (req, res) => {
-        mongoose.connect('mongodb://localhost/test');
         let prom = null;
 
         if (req.params.fichero === '*') {
@@ -133,9 +128,6 @@
             });
             console.log(`Hay que buscar en la base de datos: ${req.params.fichero}`);
         }
-        Promise.all([prom]).then(() => {
-            mongoose.connection.close();
-        });
     });
 
     module.exports = router;
