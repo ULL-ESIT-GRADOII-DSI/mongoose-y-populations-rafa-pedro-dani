@@ -5,7 +5,8 @@
 'use strict';
 const express = require('express'),
     logger = require('morgan'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    mongoose = require('mongoose');
 
 let app = express();
 
@@ -26,9 +27,19 @@ app.set('view engine', 'ejs');
 // Establecer el modo del logger
 app.use(logger('dev'));
 
+mongoose.connect('mongodb://localhost/test', (err)=> {
+        if(err) {
+            console.log("No tienes mongod encendido");
+            console.log(err);
+            throw err;
+        }
+        console.log("Conectado a mongo");
+    });
+
 // Guardamos las rutas que nos proporciona index en index
 const index = require('./routes/index'),
-      csv = require('./routes/csv');
+      csv = require('./routes/csv'),
+      user = require('./routes/user');
 
 // Capturamos la variable de entorno NODE_ENV
 const env = process.env.NODE_ENV || 'development';
@@ -38,6 +49,7 @@ app.locals.ENV_DEVELOPMENT = (env === 'development');
 // Rutas. Por defecto, que vaya al index.ejs
 app.use('/', index);
 app.use('/csv', csv);
+app.use('/user', user);
 
 app.use(require('node-sass-middleware')({
     src: `${__dirname}/assets/frontend`,
