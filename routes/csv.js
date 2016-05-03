@@ -10,6 +10,10 @@
     const User = require('../db/models/user.js');
 
     router.get('/', (req, res) => {
+        if(req.query.input == null){
+            res.status(500).send('Filename required');
+            return;
+        }
         res.json(calc(req.query.input));
     });
 
@@ -31,6 +35,18 @@
 
         // TODO: revisar que username no tenga más de 4 ficheros
         // TODO: revisar que req.body.filename no coincida con los ficheros de username
+        if(req.body.filename == null){
+            res.status(500).send('Filename required');
+            return;
+        }
+        if(req.body.data == null){
+            res.status(500).send('Data required');
+            return;
+        }
+        if(req.body.username == null){
+            res.status(500).send('Username required');
+            return;
+        }
 
         let f1 = new File({filename: req.body.filename, data: req.body.data});
         f1.save((err) => {
@@ -40,9 +56,14 @@
                 return err;
             }
             User.findOne({username: req.body.username}, (err, user) => {
+                if (err) {
+                    console.log(`Hubo errores:\n${err}`);
+                    res.status(500).send('Mongo error finding user');
+                    return err;
+                }
                 console.log('tengo al usuario');
                 console.log(user);
-
+                
                 console.log(f1);
                 user.files.push(f1._id);
                 user.save((err) => {
@@ -56,6 +77,45 @@
             });
             console.log(`Salvado el fichero ${f1}`);
         });
+        
+        /*File.count({}, (err, count) => {
+                if (err) {
+                    console.log(`Hubo errores:\n${err}`);
+                    res.status(500).send('Mongo error counting document');
+                    return err;
+                }
+                console.log(`Numero de ficheros: ${count}`);
+
+                if (count > 3) {
+                    File.findOne({}, (err, elimina) => {
+                        if (err) {
+                            console.log(`Hubo errores:\n${err}`);
+                            res.status(500).send('Mongo error finding document');
+                            return err;
+                        }
+
+                        console.log(`Se va a eliminar este elemento: ${elimina}`);  //mostraria el elemento mas viejo.
+                        elimina.remove({}, (err, removed) => {
+                            if (err) {
+                                console.log(`Hubo errores:\n${err}`);
+                                res.status(500).send('Mongo error removing document');
+                                return err;
+                            }
+                            console.log(`Se acaba de eliminar ${removed}`);
+                            let prom = guardarFichero(req.body.filename,req.body.data, res);
+                            Promise.all([prom]).then(()=>{
+                                console.log("Acabo de terminar de meter en la base de datos el fichero, le envio ok al cliente");
+                                res.status(200).send('Inserted in database');
+                            })
+                        });
+                    });
+                } else {
+                    let prom = guardarFichero(req.body.filename,req.body.data, res);
+                    Promise.all([prom]).then(()=>{
+                        res.status(200).send('Inserted in database');
+                    })
+                }
+            });*/
     });
 
     /* Ejemplo de get en la consola del navegador del cliente:
@@ -73,9 +133,12 @@
     router.get('/:fichero', (req, res) => {
         console.log(req.query)
         console.log(req.query.username)
-
+        if(req.query.username==null){
+            res.status(500).send('Username required');
+            return;
+        }
+        
         let files = [];
-
         if (req.params.fichero === '*') {
             User.
                 findOne({username: req.query.username}).

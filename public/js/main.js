@@ -58,6 +58,7 @@
         //});
 
         $('#form').submit(main);
+        $('#pag_completa').css('display', 'none');
 
         const handleDragOver = (evt) => {
             evt.stopPropagation();
@@ -136,6 +137,13 @@
         };
 
         actualizar();
+        
+        $('#prueba').click(() => {
+            $('#pag_completa').fadeIn(1600);
+            $('#pag_completa').css('display','initial');
+            $('#prueba').fadeOut(800);
+
+        });
 
         const handleDragLeave = () => {
             $('#drag_and_drop').css('background-color', '#e1f5fe');
