@@ -150,13 +150,17 @@ h5{
   margin-bottom: 0px !important;  
 }
 
-#prueba { 
+#ventana_inicial { 
   background-color:$verdefondo;
   height: 100vh;
   width: 100vw;
   z-index: 9999;
   margin-top: 0px;
   position: absolute;
+}
+
+#logo_grande{
+  margin-top: 30px;
 }
 
 .boton_usuarios{

@@ -46,6 +46,8 @@
     };
 
     $(() => {
+        
+        let usuarioactual = "";
         // If the browser supports localStorage and we have some stored data
         if (window.localStorage && localStorage.original) {
             $('#original').val(localStorage.original);
@@ -119,7 +121,7 @@
         </ul>`
 
         const actualizar = () => {
-            $.get('/csv/*', {}, (archivosbd) => {
+            $.get(`/user/${usuarioactual}`, {}, (archivosbd) => {
                 let template = _.template(archivosenbd)({archivosbd});
                 $('#contenido_bd').html(template);
                 $('.dropdown-button').dropdown({
@@ -139,17 +141,62 @@
         actualizar();
         
         $('#boton_inicio_sesion').click(() => {
-            
-            $('#pag_completa').fadeIn(1600);
-            $('#pag_completa').css('display','initial');
-            $('#prueba').fadeOut(800);
+            console.log(usuarioactual);
+            if (usuarioactual = "")
+                alert("Seleccione o cree algún usuario");
+            else{
+                $('#pag_completa').fadeIn(1600);
+                $('#pag_completa').css('display','initial');
+                $('#ventana_inicial').fadeOut(800);
+            }
 
+        });
+        
+        $('#boton_salir').click(() => {
+            usuarioactual = "";
+            $('#pag_completa').fadeOut(1600);
+            $('#pag_completa').css('display','initial');
+            $('#ventana_inicial').fadeIn(800);
         });
 
         const handleDragLeave = () => {
             $('#drag_and_drop').css('background-color', '#cfd8dc');
             $('#drag_and_drop').css('animation', 'none');
         };
+        
+        const usuariosenbd =`
+        <a class='dropdown-button btn boton_usuarios waves-effect' href='#' data-activates='dropdown2'>Seleccione un usuario</a>
+          <ul id='dropdown2' class='dropdown-content'>
+            <% usuariosbd.forEach((item, i) =>{ %>
+                <li class="listausuarios"><a><%= item %></a></li>
+            <% }); %>
+        </ul>`
+        
+        const actualizar_usuarios = () => {
+            $.get('/user/*', {}, (usuariosbd) => {
+                
+                let template = _.template(usuariosenbd)({usuariosbd});
+                $('#ventana_inicio_sesion_2').html(template);
+                
+                $('.dropdown-button').dropdown({
+                    inDuration: 300,
+                    outDuration: 225,
+                    gutter: 0, // Spacing from edge
+                    belowOrigin: false, // Displays dropdown below the button
+                });
+                
+                $('li.listausuarios').each((_,y) => {
+                    $(y).click(() => {
+                        $('#texto_bienvenida').html(`<p>Bienvenido ${$(y).text()}</p>`);
+                        usuarioactual = `${$(y).text()}`;
+                        actualizar();
+                    });
+                });
+            });
+        };
+        
+        actualizar_usuarios();
+            
 
         $('#icono_nube_verde').bind('dragover', handleDragOver);
         $('#icono_nube_verde').bind('drop', handleFileSelect);
