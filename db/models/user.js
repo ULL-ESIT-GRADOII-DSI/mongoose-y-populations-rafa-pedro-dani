@@ -2,6 +2,8 @@
     'use strict';
     const mongoose = require('mongoose');
     const File = require('./file.js');
+    console.log("Soy models/user")
+    console.log(Object.keys(File).length);
     
 
     const Schema = mongoose.Schema;
@@ -13,7 +15,6 @@
     // Si se elimina un usuario, eliminar sus ficheros en cascada
     UserShema.pre('remove', function(next) {
         this.files.forEach((it) => {
-            console.log(File);
             File.remove({_id: it}).exec();
         });
         next();

@@ -3,7 +3,8 @@
     const mongoose = require('mongoose');
     const Schema = mongoose.Schema;
     const User = require('./user.js');
-
+    //console.log("Soy models/file.js")
+    //console.log(Object.keys(User).length)
     let FileShema = mongoose.Schema({
         filename: String,
         data: String,
@@ -61,5 +62,7 @@
         })
     });
     
-    module.exports = File;
+    console.log(Object.keys(File).length);
+    
+    module.exports = mongoose.model("File", FileShema);
 })();

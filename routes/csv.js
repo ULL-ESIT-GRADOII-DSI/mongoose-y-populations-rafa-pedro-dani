@@ -24,7 +24,7 @@
 	    filename: 'input.txt',
 	    data: 'Esto es un texto',
         username: 'pepe'
-    }, () => {} , 'text');
+    }, (res) => {console.log(res)} , 'text').fail((err) => {console.log(err)});
 
     */
 

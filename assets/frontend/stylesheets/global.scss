@@ -46,7 +46,7 @@ main {
   resize: none;
 }
 
-#drag_and_drop, #ventana_inicio_sesion{
+#drag_and_drop, .boton_usuarios, .boton_usuarios_2{
     border-radius: 25px;
     border: 2px solid $verdefuerte;
     padding: 10px;
@@ -116,8 +116,8 @@ h5{
   width: 100%;
 }
 
-.btn-large:hover{
-  background-color: $verdeflojo !important;
+.btn-large:hover, .btn:hover{
+  background-color: $verdemedio !important;
 }
 
 .waves-effect{
@@ -159,3 +159,22 @@ h5{
   position: absolute;
 }
 
+.boton_usuarios{
+  padding-top: 0px;
+  width: 100%;
+  min-height: 50px !important;
+}
+
+.boton_usuarios:hover{
+  background-color: $verdeflojo !important;
+}
+
+.boton_usuarios_2{
+  padding-top: 7px;
+  width: 100%;
+  min-height: 50px !important;
+}
+
+.sep_boton{
+  padding-top: 20px !important;
+}

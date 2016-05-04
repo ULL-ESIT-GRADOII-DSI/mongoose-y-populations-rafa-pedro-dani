@@ -64,7 +64,7 @@
             evt.stopPropagation();
             evt.preventDefault();
 
-            $('#drag_and_drop').css('background-color', '#81d4fa');
+            $('#drag_and_drop').css('background-color', '#90a4ae');
             $('#drag_and_drop').css('animation', 'breathing 2s ease-out infinite normal');
         };
 
@@ -77,7 +77,7 @@
                 files = evt.target.files;
             }else {
                 files = evt.originalEvent.dataTransfer.files; // FileList object.
-                $('#drag_and_drop').css('background-color', '#e1f5fe');
+                $('#drag_and_drop').css('background-color', '#cfd8dc');
                 $('#drag_and_drop').css('animation', 'none');
             }
 
@@ -138,7 +138,8 @@
 
         actualizar();
         
-        $('#prueba').click(() => {
+        $('#boton_inicio_sesion').click(() => {
+            
             $('#pag_completa').fadeIn(1600);
             $('#pag_completa').css('display','initial');
             $('#prueba').fadeOut(800);
@@ -146,7 +147,7 @@
         });
 
         const handleDragLeave = () => {
-            $('#drag_and_drop').css('background-color', '#e1f5fe');
+            $('#drag_and_drop').css('background-color', '#cfd8dc');
             $('#drag_and_drop').css('animation', 'none');
         };
 

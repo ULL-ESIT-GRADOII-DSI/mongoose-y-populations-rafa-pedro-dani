@@ -1,60 +1,73 @@
-    <div id="prueba">
-        <div class="row">
-            <div class="col s12 m8 offset-m2 l6 offset-l3">
-                <div id="ventana_inicio_sesion">
-                    <p>Holaaaa</p>
-                </div>
-            </div>
+  <div id="prueba">
+    <div class="row center">
+      <div class="col s12 m10 offset-m1 l6 offset-l3">
+        <img src="img/logo_grande.png" class="responsive-img" alt="Logo CSV Validator">
+        <p>Seleccione o cree un nuevo usuario:</p>
+        <div id="ventana_inicio_sesion">
+          
+          <a class='dropdown-button btn boton_usuarios waves-effect' href='#' data-activates='dropdown2'>Seleccione un usuario</a>
+          <ul id='dropdown2' class='dropdown-content'>
+<li><a href="#!">one</a></li>
+    <li><a href="#!">two</a></li>
+          </ul>
+          <div class="col s12 m6 l6 sep_boton">
+          <a class="waves-effect btn boton_usuarios_2" id="boton_inicio_sesion">Iniciar sesión</a>
+          </div>
+          <div class="col s12 m6 l6 sep_boton">
+          <a class="waves-effect btn boton_usuarios_2" id="boton_registro">Registrarse</a>
+          </div>
         </div>
-        
+      </div>
     </div>
-<% include header %>
-<% include navbar %>
-<main id="pag_completa">
-<div class="row" id="prueba_fila">
-  <div class="col s10 offset-s1 center">
-   <h1>CSV Validator</h1>
-   <div class="col l8 s12">
-       <h5>Introduzca su CSV en el cuadro que se muestra a continuación:</h5>
-       <textarea name="csvData" id="original"></textarea>
-   </div>
-   <div class="col l4 s12">
-    <h5>Suelte aquí su fichero:</h5>
-    <div id="drag_and_drop" class="center">
-      <i id="icono_nube_verde" class="material-icons">backup</i>
-      <p id="texto_subida">¡Suelte aquí su fichero!</p>
+    
   </div>
-</div>
-<form action="/csv" method="post" id="form">
-    <div class="row">
-        <div class="col s6">
+  <% include header %>
+  <% include navbar %>
+  <main id="pag_completa">
+    <div class="row" id="prueba_fila">
+      <div class="col s10 offset-s1 center">
+       <h1>CSV Validator</h1>
+       <div class="col l8 s12">
+         <h5>Introduzca su CSV en el cuadro que se muestra a continuación:</h5>
+         <textarea name="csvData" id="original"></textarea>
+       </div>
+       <div class="col l4 s12">
+        <h5>Suelte aquí su fichero:</h5>
+        <div id="drag_and_drop" class="center">
+          <i id="icono_nube_verde" class="material-icons">backup</i>
+          <p id="texto_subida">¡Suelte aquí su fichero!</p>
+        </div>
+      </div>
+      <form action="/csv" method="post" id="form">
+        <div class="row">
+          <div class="col s6">
             <button class="btn-large waves-effect " type="submit" id="boton_enviar">ENVIAR</button>
-        </div>
-        <div class="col s6">
+          </div>
+          <div class="col s6">
             <button class="btn-large waves-effect " type="button" id="boton_guardar">GUARDAR</button>
-        </div>
-        <div class="col l4 s12">
-          <div class="file-field input-field">
+          </div>
+          <div class="col l4 s12">
+            <div class="file-field input-field">
               <button class="btn-large waves-effect " id="boton_ficheros" type="button">SUBIR FICHERO
                 <input type="file" id="boton_subir_fichero" name="subida_fichero"/>
-            </button>
-        </div>
-    </div>
-<div class="col l8 s12" id="contenido_bd">
-    </div>
-</div>
-</form>
-    </div>
-</div>
-
-<div class="row" id="tabla_csv">
-    <div class="col s10 offset-s1 center">
-        <table class="stripped responsive-table bordered">
-            <div class="output" id="finaltable">
+              </button>
             </div>
-        </table>
+          </div>
+          <div class="col l8 s12" id="contenido_bd">
+          </div>
+        </div>
+      </form>
     </div>
-</div>
+  </div>
+
+  <div class="row" id="tabla_csv">
+    <div class="col s10 offset-s1 center">
+      <table class="stripped responsive-table bordered">
+        <div class="output" id="finaltable">
+        </div>
+      </table>
+    </div>
+  </div>
 </main>
 <% include footer %>
 

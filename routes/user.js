@@ -20,6 +20,23 @@
             console.log(`Salvado el usuario ${u1}`);
         });
     }
+    
+    /* Ejemplo de get en la consola del navegador del cliente:
+    Descargar un fichero:
+    
+    Descargarlos todos:
+    $.get('/user/*', {}, (data) => {
+        console.log("Todos los usuarios:")
+        console.log(data)
+    });
+    
+    Sacar los ficheros de un usuario:
+    $.get('/user/pepe', {}, (data) => {
+        console.log("Ficheros de pepe:")
+        console.log(data)
+    });
+
+    */
 
     router.get('/:user', (req, res) => {
         if(req.params.user === '*') {
