@@ -33,7 +33,7 @@
         // req.body.data      Datos del fichero
         // req.body.username  Usuario al que asignarle
 
-        // TODO: revisar que username no tenga más de 4 ficheros
+
         // TODO: revisar que req.body.filename no coincida con los ficheros de username
         if(req.body.filename == null){
             res.status(500).send('Filename required');
@@ -59,6 +59,8 @@
                 res.status(400).send('Ese usuario no existe');
                 return;
             }
+            
+            console.log("El user id, en el post es " + user._id)
 
             let f1 = new File({filename: req.body.filename, data: req.body.data, owner: user._id});
             f1.save((err) => {

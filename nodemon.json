@@ -3,6 +3,7 @@
 		"routes/",
 		"assets/modules/",
 		"app.js",
-		"bin/www"
+		"bin/www",
+		"db/models/"
 	]
 }
