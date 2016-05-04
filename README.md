@@ -12,7 +12,6 @@ A los requisitos de las prácticas CSV usando Ajax anterior y de Mongoose y Mong
 ##For more information look at:
 
 * La [descripción de la práctica](https://casianorodriguezleon.gitbooks.io/pl1516/content/practicas/practicamongodbpopulate.html)
-* See it working at [CSV en Heroku](https://cvsajax.herokuapp.com/)
 * See also [CSV](http://en.wikipedia.org/wiki/Comma-separated_values) at Wikipedia.
 
 Dependencias globales:
