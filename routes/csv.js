@@ -48,22 +48,26 @@
             return;
         }
 
-        let f1 = new File({filename: req.body.filename, data: req.body.data});
-        f1.save((err) => {
+        User.findOne({username: req.body.username}, (err, user) => {
             if (err) {
                 console.log(`Hubo errores:\n${err}`);
-                res.status(500).send('Mongo error saving file');
+                res.status(500).send('Mongo error finding user');
                 return err;
             }
-            User.findOne({username: req.body.username}, (err, user) => {
+            if( user == null) {
+                console.log('Ese usuario no existe');
+                res.status(400).send('Ese usuario no existe');
+                return;
+            }
+
+            let f1 = new File({filename: req.body.filename, data: req.body.data, owner: user._id});
+            f1.save((err) => {
                 if (err) {
                     console.log(`Hubo errores:\n${err}`);
-                    res.status(500).send('Mongo error finding user');
+                    res.status(500).send('Mongo error saving file');
                     return err;
                 }
-                console.log('tengo al usuario');
-                console.log(user);
-                
+                console.log(`Salvado el fichero ${f1}`);
                 console.log(f1);
                 user.files.push(f1._id);
                 user.save((err) => {
@@ -75,51 +79,7 @@
                     res.status(200).send('Inserted in database');
                 });
             });
-            console.log(`Salvado el fichero ${f1}`);
         });
-        
-        
-        
-        
-        
-        /*File.count({}, (err, count) => {
-                if (err) {
-                    console.log(`Hubo errores:\n${err}`);
-                    res.status(500).send('Mongo error counting document');
-                    return err;
-                }
-                console.log(`Numero de ficheros: ${count}`);
-
-                if (count > 3) {
-                    File.findOne({}, (err, elimina) => {
-                        if (err) {
-                            console.log(`Hubo errores:\n${err}`);
-                            res.status(500).send('Mongo error finding document');
-                            return err;
-                        }
-
-                        console.log(`Se va a eliminar este elemento: ${elimina}`);  //mostraria el elemento mas viejo.
-                        elimina.remove({}, (err, removed) => {
-                            if (err) {
-                                console.log(`Hubo errores:\n${err}`);
-                                res.status(500).send('Mongo error removing document');
-                                return err;
-                            }
-                            console.log(`Se acaba de eliminar ${removed}`);
-                            let prom = guardarFichero(req.body.filename,req.body.data, res);
-                            Promise.all([prom]).then(()=>{
-                                console.log("Acabo de terminar de meter en la base de datos el fichero, le envio ok al cliente");
-                                res.status(200).send('Inserted in database');
-                            })
-                        });
-                    });
-                } else {
-                    let prom = guardarFichero(req.body.filename,req.body.data, res);
-                    Promise.all([prom]).then(()=>{
-                        res.status(200).send('Inserted in database');
-                    })
-                }
-            });*/
     });
 
     /* Ejemplo de get en la consola del navegador del cliente:
