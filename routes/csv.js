@@ -97,8 +97,6 @@
     });*/
 
     router.get('/:fichero', (req, res) => {
-        console.log(req.query)
-        console.log(req.query.username)
         if(req.query.username==null){
             res.status(500).send('Username required');
             return;
@@ -122,7 +120,31 @@
                 });
         } else {
             //TODO: enviar un unico fichero cuando el cliente lo pida
-            res.status(500).send('TODO');
+            
+            User.findOne({username: req.query.username}, (err, user) => {
+                if (err) {
+                    console.log(`Hubo errores:\n${err}`);
+                    res.status(500).send('Mongo error in query');
+                    return err;
+                }
+                if (user == null) {
+                    res.status(400).send('Ese usuario no existe');
+                    return;
+                } 
+                File.findOne({owner: user._id, filename: req.params.fichero}, (err, fichero) => {
+                    if (err) {
+                        console.log(`Hubo errores:\n${err}`);
+                        res.status(500).send('Mongo error in query');
+                        return err;
+                    }
+                    if (fichero == null) {
+                        res.status(400).send('Ese fichero no existe');
+                        return;
+                    }
+                    console.log(fichero);
+                    res.send(fichero);
+                });
+            });
         }
     });
 
