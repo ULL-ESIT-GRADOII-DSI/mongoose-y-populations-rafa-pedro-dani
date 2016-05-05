@@ -1,24 +1,24 @@
-@import 'colores.scss';
+@import 'colores';
 
-#footer_csv{
+#footer_csv {
   background-color: $verdefuerte !important;
-  padding-top: 0px;
-  margin-top: 0px;
+  margin-top: 0;
+  padding-top: 0;
 }
 
-#row_footer{
+#row_footer {
   margin-bottom: 5px;
 }
 
-#texto_footer{
-   margin-top: 5px;
-   margin-bottom: 5px;
+#texto_footer {
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
-.chip{
+.chip {
   background-color: $verdefondo;
 }
 
-.chip a{
+.chip a {
   color: #616161 !important;
 }
