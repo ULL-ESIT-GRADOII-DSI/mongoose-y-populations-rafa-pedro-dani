@@ -14,8 +14,31 @@
           <div class="col s12 m6 l6 sep_boton">
           <a class="waves-effect btn boton_usuarios_2" id="boton_inicio_sesion">Iniciar sesión</a>
           </div>
+          <div class="lean-overlay" id="materialize-lean-overlay-2" style="z-index: 1002; display: none; opacity: 0.5;"></div>
           <div class="col s12 m6 l6 sep_boton">
-          <a class="waves-effect btn boton_usuarios_2" id="boton_registro">Registrarse</a>
+          <a class="waves-effect btn boton_usuarios_2 modal-trigger" id="boton_registro" href="#modal1">Registrarse</a>
+          <div id="modal1" class="modal">
+            <div class="modal-content" id="fila_registro">
+              <h4>Registro</h4>
+              <p>Introduzca su nombre y apellidos:</p>
+              <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="nombre" type="text" class="validate">
+          <label for="nombre">Nombre</label>
+        </div>
+        <div class="input-field col s12 m6">
+          <input id="apellidos" type="text" class="validate">
+          <label for="apellidos">Apellidos</label>
+        </div>
+      </div>
+      </div>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class=" modal-action modal-close waves-effect btn">ACEPTAR</a>
+            </div>
+          </div>
           </div>
         </div>
       </div>

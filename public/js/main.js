@@ -61,6 +61,22 @@
 
         $('#form').submit(main);
         $('#pag_completa').css('display', 'none');
+        $('.modal-trigger').leanModal({
+            dismissible: true, // Modal can be dismissed by clicking outside of the modal
+            opacity: .50, // Opacity of modal background
+            in_duration: 300, // Transition in duration
+            out_duration: 200, // Transition out duration
+            complete: function() { 
+                $('#materialize-lean-overlay-2').css('display', 'none');
+                usuarioactual = $('#nombre').val()+' '+$('#apellidos').val();
+                $.get(`/user/${usuarioactual}`, {}, (data) => {
+                    actualizar();
+                    actualizar_usuarios();
+                    $('#texto_bienvenida').html(`<p>Bienvenido ${usuarioactual}</p>`);
+                });
+                
+            } // Callback for Modal close
+        });
 
         const handleDragOver = (evt) => {
             evt.stopPropagation();
@@ -148,14 +164,19 @@
                 $('#pag_completa').css('display','initial');
                 $('#ventana_inicial').fadeOut(800);
             }
-
+        });
+        
+        $("#boton_registro").click(() => {
+            $('#materialize-lean-overlay-2').css('display', 'block');
         });
         
         $('#boton_salir').click(() => {
-            usuarioactual = "";
+            usuarioactual = undefined;
+            $('#texto_bienvenida').empty();
             $('#pag_completa').fadeOut(1600);
             $('#pag_completa').css('display','initial');
             $('#ventana_inicial').fadeIn(800);
+            $('#original').val("");
         });
 
         const handleDragLeave = () => {
