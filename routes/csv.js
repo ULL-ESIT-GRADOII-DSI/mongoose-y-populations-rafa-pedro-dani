@@ -37,24 +37,22 @@
         // req.body.data      Datos del fichero
         // req.body.username  Usuario al que asignarle
 
-
-        // TODO: revisar que req.body.filename no coincida con los ficheros de username
         if(req.body.filename == null){
-            res.status(500).send('Filename required');
+            res.status(400).send('Filename required');
             return;
         }
         if(req.body.data == null){
-            res.status(500).send('Data required');
+            res.status(400).send('Data required');
             return;
         }
         if(req.body.username == null){
-            res.status(500).send('Username required');
+            res.status(400).send('Username required');
             return;
         }
 
         User.findOne({username: req.body.username}, (err, user) => {
             if (err) {
-                console.log(`Hubo errores:\n${err}`);
+                console.log(err);
                 res.status(500).send('Mongo error finding user');
                 return err;
             }
@@ -69,16 +67,17 @@
             let f1 = new File({filename: req.body.filename, data: req.body.data, owner: user._id});
             f1.save((err) => {
                 if (err) {
-                    console.log(`Hubo errores:\n${err}`);
-                    res.status(500).send('Mongo error saving file');
+                    if(err.toString() === "Error: Ya hay un fichero con ese nombre"){
+                        res.status(400).send('Ese fichero ya existe');
+                    } else {
+                        res.status(500).send('Mongo error saving file');   
+                    }
                     return err;
                 }
-                console.log(`Salvado el fichero ${f1}`);
-                console.log(f1);
                 user.files.push(f1._id);
                 user.save((err) => {
                     if (err) {
-                        console.log(`Hubo errores:\n${err}`);
+                        console.log(err);
                         res.status(500).send('Mongo error saving file');
                         return err;
                     }
@@ -102,7 +101,7 @@
 
     router.get('/:fichero', (req, res) => {
         if(req.query.username==null){
-            res.status(500).send('Username required');
+            res.status(400).send('Username required');
             return;
         }
         
@@ -113,7 +112,7 @@
                 populate('files').
                 exec((err, doc) => {
                     if (err) {
-                        console.log(`Hubo errores:\n${err}`);
+                        console.log(err);
                         res.status(500).send('Mongo error in query');
                         return err;
                     }
@@ -123,11 +122,10 @@
                     res.send(files);
                 });
         } else {
-            //TODO: enviar un unico fichero cuando el cliente lo pida
             
             User.findOne({username: req.query.username}, (err, user) => {
                 if (err) {
-                    console.log(`Hubo errores:\n${err}`);
+                    console.log(err);
                     res.status(500).send('Mongo error in query');
                     return err;
                 }
@@ -137,7 +135,7 @@
                 } 
                 File.findOne({owner: user._id, filename: req.params.fichero}, (err, fichero) => {
                     if (err) {
-                        console.log(`Hubo errores:\n${err}`);
+                        console.log({err});
                         res.status(500).send('Mongo error in query');
                         return err;
                     }

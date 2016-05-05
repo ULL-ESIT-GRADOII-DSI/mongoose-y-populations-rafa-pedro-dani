@@ -56,7 +56,7 @@
         } else {
             User.findOne({username: req.params.user}, (err, user) => {
                 if (err) {
-                    console.log('Hubo un error en fichero singular');
+                    console.log(err);
                     res.status(500).send('Mongo error when finding that file');
                     return err;
                 }
@@ -68,7 +68,7 @@
                         populate('files').
                         exec((err, doc) => {
                             if (err) {
-                                console.log(`Hubo errores:\n${err}`);
+                                console.log(err);
                                 res.status(500).send('Mongo error in query');
                                 return err;
                             }
@@ -91,12 +91,11 @@
         }
     });
 
-    // TODO: Quitar, sólo para hacer pruebas
+    // Sólo para hacer pruebas, en una aplicación real no tendríamos esto.
     router.delete('/:user', (req, res) => {
         console.log(req.params.user);
         User.findOne({username: req.params.user}, (err, user) => {
             if (err) {
-                console.log('Hubo un error al intentar eliminar');
                 console.log(err)
                 res.status(500).send('Mongo error deleting');
                 return err;

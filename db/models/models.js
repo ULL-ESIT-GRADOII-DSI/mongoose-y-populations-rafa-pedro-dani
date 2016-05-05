@@ -27,30 +27,28 @@
     });
 
     FileSchema.pre('save', function(next) {
-        console.log("El owener es: " + this.owner)
         File.find({filename: this.filename}, (err, ficheros) => {
             if(err){
-                console.log('hubo errores File Find');
+                console.log(err);
                 return err;
             }
             if(ficheros.length != 0){
-                console.log('ya hay un fichero con ese nombre');
                 var err = new Error('Ya hay un fichero con ese nombre');
+                console.log(err)
                 next(err);
                 return;
             } else {
                 File.find({owner: this.owner}, (err, ficheros) => {
                     if(err){
-                        console.log('hubo errores al buscar el propietario del fichero');
+                        console.log(err);
                         return err;
                     }
-                    console.log("hay " + ficheros.length + " ficheros en la base de datos");
                     if(ficheros.length > 3) {
                         File.remove({_id: ficheros[0]._id}).exec();
                         console.log("Voy a buscar la _id de " + this.owner);
                         User.findOne({_id: this.owner}, (err, usuario) => {
                             if(err){
-                                console.log('hubo errores user findOne');
+                                console.log(err);
                                 return err;
                             }
                             usuario.files.forEach((it, i) => {
@@ -60,7 +58,7 @@
                             });
                             usuario.save((err) => {
                                 if(err) {
-                                    console.log('hubo errores al guardar el usuario');
+                                    console.log(err);
                                     return err;
                                 }
                                 next();
@@ -74,5 +72,8 @@
         })
     });
 
-    module.exports = {File: mongoose.model("File", FileSchema), User: mongoose.model("User", UserSchema)};
+    module.exports = {
+        File: mongoose.model("File", FileSchema),
+        User: mongoose.model("User", UserSchema)
+    };
 })();
