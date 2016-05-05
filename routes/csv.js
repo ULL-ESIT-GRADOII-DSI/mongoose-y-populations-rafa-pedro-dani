@@ -1,20 +1,19 @@
 (() => {
     'use strict';
     const express = require('express'),
-          mongoose = require('mongoose'),
           calc = require('../assets/modules/csv');
 
     const router = express.Router();
 
     //const File = require('../db/models/file.js');
     //const User = require('../db/models/user.js');
-    
+
     const Models = require('../db/models/models.js');
     const File = Models.File;
     const User = Models.User;
 
     router.get('/', (req, res) => {
-        if(req.query.input == null){
+        if (req.query.input === null) {
             res.status(500).send('Filename required');
             return;
         }
@@ -37,15 +36,15 @@
         // req.body.data      Datos del fichero
         // req.body.username  Usuario al que asignarle
 
-        if(req.body.filename == null){
+        if (req.body.filename === null) {
             res.status(400).send('Filename required');
             return;
         }
-        if(req.body.data == null){
+        if (req.body.data === null) {
             res.status(400).send('Data required');
             return;
         }
-        if(req.body.username == null){
+        if (req.body.username === null) {
             res.status(400).send('Username required');
             return;
         }
@@ -56,21 +55,21 @@
                 res.status(500).send('Mongo error finding user');
                 return err;
             }
-            if( user == null) {
+            if (user === null) {
                 console.log('Ese usuario no existe');
                 res.status(400).send('Ese usuario no existe');
                 return;
             }
-            
-            console.log("El user id, en el post es " + user._id)
+
+            console.log(`El user id, en el post es ${user._id}`);
 
             let f1 = new File({filename: req.body.filename, data: req.body.data, owner: user._id});
             f1.save((err) => {
                 if (err) {
-                    if(err.toString() === "Error: Ya hay un fichero con ese nombre"){
+                    if (err.toString() === 'Error: Ya hay un fichero con ese nombre') {
                         res.status(400).send('Ese fichero ya existe');
                     } else {
-                        res.status(500).send('Mongo error saving file');   
+                        res.status(500).send('Mongo error saving file');
                     }
                     return err;
                 }
@@ -100,11 +99,11 @@
     });*/
 
     router.get('/:fichero', (req, res) => {
-        if(req.query.username==null){
+        if (req.query.username === null) {
             res.status(400).send('Username required');
             return;
         }
-        
+
         let files = [];
         if (req.params.fichero === '*') {
             User.
@@ -122,24 +121,23 @@
                     res.send(files);
                 });
         } else {
-            
             User.findOne({username: req.query.username}, (err, user) => {
                 if (err) {
                     console.log(err);
                     res.status(500).send('Mongo error in query');
                     return err;
                 }
-                if (user == null) {
+                if (user === null) {
                     res.status(400).send('Ese usuario no existe');
                     return;
-                } 
+                }
                 File.findOne({owner: user._id, filename: req.params.fichero}, (err, fichero) => {
                     if (err) {
                         console.log({err});
                         res.status(500).send('Mongo error in query');
                         return err;
                     }
-                    if (fichero == null) {
+                    if (fichero === null) {
                         res.status(400).send('Ese fichero no existe');
                         return;
                     }

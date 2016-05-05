@@ -1,16 +1,9 @@
 (() => {
     'use strict';
-    const express = require('express'),
-          mongoose = require('mongoose');
-
+    const express = require('express');
     const router = express.Router();
 
-    //const User = require('../db/models/user.js');
-    //const File = require('../db/models/file.js');
-    
-    const Models = require('../db/models/models.js');
-    const File = Models.File;
-    const User = Models.User;
+    const User = require('../db/models/models.js').User;
 
     // Funcion para guardar usuario
     function guardarUsuario(username, res) {
@@ -24,16 +17,16 @@
             console.log(`Salvado el usuario ${u1}`);
         });
     }
-    
+
     /* Ejemplo de get en la consola del navegador del cliente:
     Descargar un fichero:
-    
+
     Descargarlos todos:
     $.get('/user/*', {}, (data) => {
         console.log("Todos los usuarios:")
         console.log(data)
     });
-    
+
     Sacar los ficheros de un usuario:
     $.get('/user/pepe', {}, (data) => {
         console.log("Ficheros de pepe:")
@@ -43,14 +36,19 @@
     */
 
     router.get('/:user', (req, res) => {
-        if(req.params.user === '*') {
-            let users_arr = [];
+        if (req.params.user === '*') {
+            let usersArr = [];
             User.find({}, (err, users) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).send('Mongo error when finding all users');
+                    return err;
+                }
                 //console.log(users);
                 users.forEach((user) => {
-                    users_arr.push(user.username);
+                    usersArr.push(user.username);
                 });
-                res.send(users_arr);
+                res.send(usersArr);
                 return;
             });
         } else {
@@ -60,7 +58,7 @@
                     res.status(500).send('Mongo error when finding that file');
                     return err;
                 }
-                if (user != null) {
+                if (user !== null) {
                     console.log('Este usuario ya existe en la base de datos');
                     let files = [];
                     User.
@@ -76,7 +74,7 @@
                                 files.push({filename: it.filename, data: it.data});
                             });
                             res.send(files);
-                    });
+                        });
                     return;
                 } else {
                     let prom = guardarUsuario(req.params.user, res);
@@ -96,11 +94,12 @@
         console.log(req.params.user);
         User.findOne({username: req.params.user}, (err, user) => {
             if (err) {
-                console.log(err)
+                console.log(err);
                 res.status(500).send('Mongo error deleting');
                 return err;
             }
             user.remove((err) => {
+                console.log(err);
                 res.status(200).send('Deleted from database');
             });
         });
