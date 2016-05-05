@@ -1,4 +1,5 @@
   <div id="ventana_inicial">
+    <div class="lean-overlay" id="materialize-lean-overlay-2" style="z-index: 1002; opacity: 0.5;"></div>
     <div class="row center">
       <div class="col s12 m10 offset-m1 l6 offset-l3">
         <img id="logo_grande" src="img/logo_grande.png" class="responsive-img" alt="Logo CSV Validator">
@@ -14,7 +15,7 @@
           <div class="col s12 m6 l6 sep_boton">
           <a class="waves-effect btn boton_usuarios_2" id="boton_inicio_sesion">Iniciar sesión</a>
           </div>
-          <div class="lean-overlay" id="materialize-lean-overlay-2" style="z-index: 1002; display: none; opacity: 0.5;"></div>
+          
           <div class="col s12 m6 l6 sep_boton">
           <a class="waves-effect btn boton_usuarios_2 modal-trigger" id="boton_registro" href="#modal1">Registrarse</a>
           <div id="modal1" class="modal">
@@ -65,14 +66,14 @@
       <form action="/csv" method="post" id="form">
         <div class="row">
           <div class="col s6">
-            <button class="btn-large waves-effect " type="submit" id="boton_enviar">ENVIAR</button>
+            <button class="btn-large waves-effect" type="button" id="boton_enviar">ENVIAR</button>
           </div>
           <div class="col s6">
-            <button class="btn-large waves-effect " type="button" id="boton_guardar">GUARDAR</button>
+            <button class="btn-large waves-effect" type="button" id="boton_guardar">GUARDAR</button>
           </div>
           <div class="col l4 s12">
             <div class="file-field input-field">
-              <button class="btn-large waves-effect " id="boton_ficheros" type="button">SUBIR FICHERO
+              <button class="btn-large waves-effect" id="boton_ficheros" type="button">SUBIR FICHERO
                 <input type="file" id="boton_subir_fichero" name="subida_fichero"/>
               </button>
             </div>

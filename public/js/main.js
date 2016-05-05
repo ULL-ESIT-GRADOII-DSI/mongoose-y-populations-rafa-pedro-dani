@@ -58,7 +58,7 @@
         //    });
         //});
 
-        $('#form').submit(main);
+        $('#boton_enviar').click(main);
         $('#pag_completa').css('display', 'none');
         $('.modal-trigger').leanModal({
             dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -66,16 +66,18 @@
             in_duration: 300, // Transition in duration
             out_duration: 200, // Transition out duration
             complete: function() {
-                $('#materialize-lean-overlay-2').css('display', 'none');
-                //usuarioactual = $('#nombre').val()+' '+$('#apellidos').val();
-                usuarioactual = `${$('#nombre').val()} ${$('#apellidos').val()}`;
-                $.get(`/user/${usuarioactual}`, {}, () => {
-                    actualizar();
-                    actualizarUsuarios();
-                    $('#texto_bienvenida').html(`<p>Bienvenido ${usuarioactual}</p>`);
-                });
-
-            } // Callback for Modal close
+                $('#materialize-lean-overlay-2').hide();
+                if ($('#nombre').val() == "" || $('#apellidos').val() == "")
+                    alert("Ha dejado un campo en blanco");
+                else{
+                    usuarioactual = `${$('#nombre').val()} ${$('#apellidos').val()}`;
+                    $.get(`/user/${usuarioactual}`, {}, () => {
+                        actualizar();
+                        actualizarUsuarios();
+                        $('#texto_bienvenida').html(`<p>Bienvenido ${usuarioactual}</p>`);
+                    });
+                } // Callback for Modal close
+            }
         });
 
         const handleDragOver = (evt) => {
@@ -115,14 +117,12 @@
 
         $('#boton_guardar').click(() => {
             let nombrefichero = prompt('Introduzca el nombre de su fichero', 'Texto 1');
-            console.log('Vamos a hacer la petición post');
 
             $.post('/csv', {
                 filename: nombrefichero,
                 data: $('#original').val(),
                 username: `${usuarioactual}`
             }, (res) => {
-                console.log(res);
                 actualizar();
             } , 'text').fail((err) => {
                 if (err.status === 400) {
@@ -172,7 +172,7 @@
         });
 
         $('#boton_registro').click(() => {
-            $('#materialize-lean-overlay-2').css('display', 'block');
+            $('#materialize-lean-overlay-2').show();
         });
 
         $('#boton_salir').click(() => {
