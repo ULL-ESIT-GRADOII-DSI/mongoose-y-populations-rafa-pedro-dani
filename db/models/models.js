@@ -2,18 +2,31 @@
     'use strict';
     const mongoose = require('mongoose');
     const Schema = mongoose.Schema;
-    const User = require('./user.js');
-    //console.log("Soy models/file.js")
-    //console.log(Object.keys(User).length)
-    let FileShema = mongoose.Schema({
+    
+    
+    let FileSchema = mongoose.Schema({
         filename: String,
         data: String,
         owner: { type: Schema.Types.ObjectId, ref: 'User' }
     });
+    
+    let UserSchema = mongoose.Schema({
+        username: String,
+        files: [{ type: Schema.Types.ObjectId, ref: 'File' }]
+    });
+    
+    const File = mongoose.model("File", FileSchema);
+    const User = mongoose.model("User", UserSchema);
 
-    const File = mongoose.model("File", FileShema);
+    // Si se elimina un usuario, eliminar sus ficheros en cascada
+    UserSchema.pre('remove', function(next) {
+        this.files.forEach((it) => {
+            File.remove({_id: it}).exec();
+        });
+        next();
+    });
 
-    FileShema.pre('save', function(next) {
+    FileSchema.pre('save', function(next) {
         console.log("El owener es: " + this.owner)
         File.find({filename: this.filename}, (err, ficheros) => {
             if(err){
@@ -31,7 +44,6 @@
                         console.log('hubo errores al buscar el propietario del fichero');
                         return err;
                     }
-
                     console.log("hay " + ficheros.length + " ficheros en la base de datos");
                     if(ficheros.length > 3) {
                         File.remove({_id: ficheros[0]._id}).exec();
@@ -62,7 +74,5 @@
         })
     });
 
-    console.log(Object.keys(File).length);
-
-    module.exports = mongoose.model("File", FileShema);
+    module.exports = {File: mongoose.model("File", FileSchema), User: mongoose.model("User", UserSchema)};
 })();

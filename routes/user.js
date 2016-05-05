@@ -5,8 +5,12 @@
 
     const router = express.Router();
 
-    const User = require('../db/models/user.js');
-    const File = require('../db/models/file.js');
+    //const User = require('../db/models/user.js');
+    //const File = require('../db/models/file.js');
+    
+    const Models = require('../db/models/models.js');
+    const File = Models.File;
+    const User = Models.User;
 
     // Funcion para guardar usuario
     function guardarUsuario(username, res) {

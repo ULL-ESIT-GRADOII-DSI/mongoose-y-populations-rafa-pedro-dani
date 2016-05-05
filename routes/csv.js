@@ -6,8 +6,12 @@
 
     const router = express.Router();
 
-    const File = require('../db/models/file.js');
-    const User = require('../db/models/user.js');
+    //const File = require('../db/models/file.js');
+    //const User = require('../db/models/user.js');
+    
+    const Models = require('../db/models/models.js');
+    const File = Models.File;
+    const User = Models.User;
 
     router.get('/', (req, res) => {
         if(req.query.input == null){
