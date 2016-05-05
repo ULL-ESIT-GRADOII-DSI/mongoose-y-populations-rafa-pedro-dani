@@ -47,7 +47,7 @@
 
     $(() => {
         
-        let usuarioactual = "";
+        let usuarioactual = undefined;
         // If the browser supports localStorage and we have some stored data
         if (window.localStorage && localStorage.original) {
             $('#original').val(localStorage.original);
@@ -100,16 +100,14 @@
         $("#boton_guardar").click(() => {
             let nombrefichero = prompt ("Introduzca el nombre de su fichero", "Texto 1");
             console.log("Vamos a hacer la petición post");
+            
+            
             $.post('/csv', {
 	            filename: nombrefichero,
-	            data: $('#original').val()
-            }, (res) => {
-                console.log("Terminé la peticion post")
-                console.log(res);
-                actualizar();
-            } , 'text').fail((err)=>{
-                if(err.status==400)alert("Ya existe un fichero con el mismo nombre en la base de datos. Introduzca otro.")
-            });
+	            data: $('#original').val(),
+                username: `${usuarioactual}`
+            }, (res) => {console.log(res); actualizar()} , 'text').fail((err) => {if(err.status==400)alert("Ya existe un fichero con el mismo nombre en la base de datos. Introduzca otro.")});
+    
         });
 
         const archivosenbd =`
@@ -132,17 +130,18 @@
                 });
                 $('li.listabd').each((_,y) => {
                     $(y).click(() => {
-                        dump(`/csv/${$(y).text()}`);
+                        $.get(`/csv/${$(y).text()}`, {username: `${usuarioactual}`}, (data) => {
+                            $('#original').val(data.data);
+                        });
+                        
                     });
                 });
             });
         };
-
-        actualizar();
         
         $('#boton_inicio_sesion').click(() => {
-            console.log(usuarioactual);
-            if (usuarioactual = "")
+            
+            if (usuarioactual == undefined)
                 alert("Seleccione o cree algún usuario");
             else{
                 $('#pag_completa').fadeIn(1600);
